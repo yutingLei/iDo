@@ -8,12 +8,20 @@
 
 /* Begin PBXBuildFile section */
 		840343FA22A904190083CA01 /* iDo.h in Headers */ = {isa = PBXBuildFile; fileRef = 840343F822A904190083CA01 /* iDo.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		8403440122A904D70083CA01 /* UIView+iDo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8403440022A904D70083CA01 /* UIView+iDo.swift */; };
+		8403440322A90AC00083CA01 /* MediaProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8403440222A90AC00083CA01 /* MediaProtocols.swift */; };
+		8403440622A915920083CA01 /* UIViewController+iDo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8403440522A915920083CA01 /* UIViewController+iDo.swift */; };
+		8403440822A9160B0083CA01 /* iDo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8403440722A9160B0083CA01 /* iDo.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		840343F522A904190083CA01 /* iDo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = iDo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		840343F822A904190083CA01 /* iDo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = iDo.h; sourceTree = "<group>"; };
 		840343F922A904190083CA01 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8403440022A904D70083CA01 /* UIView+iDo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+iDo.swift"; sourceTree = "<group>"; };
+		8403440222A90AC00083CA01 /* MediaProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaProtocols.swift; sourceTree = "<group>"; };
+		8403440522A915920083CA01 /* UIViewController+iDo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+iDo.swift"; sourceTree = "<group>"; };
+		8403440722A9160B0083CA01 /* iDo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iDo.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -46,10 +54,22 @@
 		840343F722A904190083CA01 /* iDo */ = {
 			isa = PBXGroup;
 			children = (
+				8403440422A915550083CA01 /* Cocoa */,
 				840343F822A904190083CA01 /* iDo.h */,
+				8403440722A9160B0083CA01 /* iDo.swift */,
+				8403440222A90AC00083CA01 /* MediaProtocols.swift */,
 				840343F922A904190083CA01 /* Info.plist */,
 			);
 			path = iDo;
+			sourceTree = "<group>";
+		};
+		8403440422A915550083CA01 /* Cocoa */ = {
+			isa = PBXGroup;
+			children = (
+				8403440022A904D70083CA01 /* UIView+iDo.swift */,
+				8403440522A915920083CA01 /* UIViewController+iDo.swift */,
+			);
+			path = Cocoa;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -95,6 +115,7 @@
 				TargetAttributes = {
 					840343F422A904190083CA01 = {
 						CreatedOnToolsVersion = 10.2.1;
+						LastSwiftMigration = 1020;
 					};
 				};
 			};
@@ -130,6 +151,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8403440822A9160B0083CA01 /* iDo.swift in Sources */,
+				8403440622A915920083CA01 /* UIViewController+iDo.swift in Sources */,
+				8403440122A904D70083CA01 /* UIView+iDo.swift in Sources */,
+				8403440322A90AC00083CA01 /* MediaProtocols.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -261,6 +286,7 @@
 		840343FE22A904190083CA01 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
@@ -278,6 +304,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.apple.ios.iDo;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -286,6 +313,7 @@
 		840343FF22A904190083CA01 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
