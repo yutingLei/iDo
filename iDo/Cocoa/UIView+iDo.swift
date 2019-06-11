@@ -18,7 +18,10 @@ public extension UIView {
             if next is UIViewController {
                 return next as? UIViewController
             }
-            return superview?.controller
+            if next is UIView {
+                return (next as? UIView)?.controller
+            }
+            return nil
         }
     }
 }
