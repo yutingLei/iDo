@@ -12,6 +12,12 @@
 		8401730622AF5A2100C8D9A3 /* Toast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8401730522AF5A2100C8D9A3 /* Toast.swift */; };
 		8401730A22AF7FB900C8D9A3 /* UIColor+iDo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8401730922AF7FB900C8D9A3 /* UIColor+iDo.swift */; };
 		8401730C22AF85A900C8D9A3 /* DatePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8401730B22AF85A900C8D9A3 /* DatePicker.swift */; };
+		8401731422AF92AD00C8D9A3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8401731322AF92AD00C8D9A3 /* AppDelegate.swift */; };
+		8401731622AF92AD00C8D9A3 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8401731522AF92AD00C8D9A3 /* ViewController.swift */; };
+		8401731922AF92AD00C8D9A3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8401731722AF92AD00C8D9A3 /* Main.storyboard */; };
+		8401731B22AF92AE00C8D9A3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8401731A22AF92AE00C8D9A3 /* Assets.xcassets */; };
+		8401731E22AF92AE00C8D9A3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8401731C22AF92AE00C8D9A3 /* LaunchScreen.storyboard */; };
+		8401732422AF92C300C8D9A3 /* iDo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 840343F522A904190083CA01 /* iDo.framework */; };
 		840343FA22A904190083CA01 /* iDo.h in Headers */ = {isa = PBXBuildFile; fileRef = 840343F822A904190083CA01 /* iDo.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8403440122A904D70083CA01 /* UIView+iDo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8403440022A904D70083CA01 /* UIView+iDo.swift */; };
 		8403440322A90AC00083CA01 /* MediaProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8403440222A90AC00083CA01 /* MediaProtocols.swift */; };
@@ -25,6 +31,13 @@
 		8401730522AF5A2100C8D9A3 /* Toast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Toast.swift; sourceTree = "<group>"; };
 		8401730922AF7FB900C8D9A3 /* UIColor+iDo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+iDo.swift"; sourceTree = "<group>"; };
 		8401730B22AF85A900C8D9A3 /* DatePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePicker.swift; sourceTree = "<group>"; };
+		8401731122AF92AD00C8D9A3 /* iDoDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iDoDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		8401731322AF92AD00C8D9A3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		8401731522AF92AD00C8D9A3 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		8401731822AF92AD00C8D9A3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		8401731A22AF92AE00C8D9A3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		8401731D22AF92AE00C8D9A3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		8401731F22AF92AE00C8D9A3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		840343F522A904190083CA01 /* iDo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = iDo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		840343F822A904190083CA01 /* iDo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = iDo.h; sourceTree = "<group>"; };
 		840343F922A904190083CA01 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -35,6 +48,14 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		8401730E22AF92AD00C8D9A3 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8401732422AF92C300C8D9A3 /* iDo.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		840343F222A904190083CA01 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -54,11 +75,33 @@
 			path = Classic;
 			sourceTree = "<group>";
 		};
+		8401731222AF92AD00C8D9A3 /* iDoDemo */ = {
+			isa = PBXGroup;
+			children = (
+				8401731322AF92AD00C8D9A3 /* AppDelegate.swift */,
+				8401731522AF92AD00C8D9A3 /* ViewController.swift */,
+				8401731722AF92AD00C8D9A3 /* Main.storyboard */,
+				8401731A22AF92AE00C8D9A3 /* Assets.xcassets */,
+				8401731C22AF92AE00C8D9A3 /* LaunchScreen.storyboard */,
+				8401731F22AF92AE00C8D9A3 /* Info.plist */,
+			);
+			path = iDoDemo;
+			sourceTree = "<group>";
+		};
+		8401732322AF92C300C8D9A3 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		840343EB22A904190083CA01 = {
 			isa = PBXGroup;
 			children = (
 				840343F722A904190083CA01 /* iDo */,
+				8401731222AF92AD00C8D9A3 /* iDoDemo */,
 				840343F622A904190083CA01 /* Products */,
+				8401732322AF92C300C8D9A3 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -66,6 +109,7 @@
 			isa = PBXGroup;
 			children = (
 				840343F522A904190083CA01 /* iDo.framework */,
+				8401731122AF92AD00C8D9A3 /* iDoDemo.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -109,6 +153,23 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
+		8401731022AF92AD00C8D9A3 /* iDoDemo */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8401732022AF92AE00C8D9A3 /* Build configuration list for PBXNativeTarget "iDoDemo" */;
+			buildPhases = (
+				8401730D22AF92AD00C8D9A3 /* Sources */,
+				8401730E22AF92AD00C8D9A3 /* Frameworks */,
+				8401730F22AF92AD00C8D9A3 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = iDoDemo;
+			productName = iDoDemo;
+			productReference = 8401731122AF92AD00C8D9A3 /* iDoDemo.app */;
+			productType = "com.apple.product-type.application";
+		};
 		840343F422A904190083CA01 /* iDo */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 840343FD22A904190083CA01 /* Build configuration list for PBXNativeTarget "iDo" */;
@@ -133,9 +194,13 @@
 		840343EC22A904190083CA01 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastSwiftUpdateCheck = 1020;
 				LastUpgradeCheck = 1020;
 				ORGANIZATIONNAME = Conjur;
 				TargetAttributes = {
+					8401731022AF92AD00C8D9A3 = {
+						CreatedOnToolsVersion = 10.2.1;
+					};
 					840343F422A904190083CA01 = {
 						CreatedOnToolsVersion = 10.2.1;
 						LastSwiftMigration = 1020;
@@ -148,6 +213,7 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				Base,
 			);
 			mainGroup = 840343EB22A904190083CA01;
 			productRefGroup = 840343F622A904190083CA01 /* Products */;
@@ -155,11 +221,22 @@
 			projectRoot = "";
 			targets = (
 				840343F422A904190083CA01 /* iDo */,
+				8401731022AF92AD00C8D9A3 /* iDoDemo */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		8401730F22AF92AD00C8D9A3 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8401731E22AF92AE00C8D9A3 /* LaunchScreen.storyboard in Resources */,
+				8401731B22AF92AE00C8D9A3 /* Assets.xcassets in Resources */,
+				8401731922AF92AD00C8D9A3 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		840343F322A904190083CA01 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -170,6 +247,15 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		8401730D22AF92AD00C8D9A3 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8401731622AF92AD00C8D9A3 /* ViewController.swift in Sources */,
+				8401731422AF92AD00C8D9A3 /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		840343F122A904190083CA01 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -188,7 +274,60 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXVariantGroup section */
+		8401731722AF92AD00C8D9A3 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				8401731822AF92AD00C8D9A3 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		8401731C22AF92AE00C8D9A3 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				8401731D22AF92AE00C8D9A3 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
 /* Begin XCBuildConfiguration section */
+		8401732122AF92AE00C8D9A3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = iDoDemo/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.apple.ios.iDoDemo;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		8401732222AF92AE00C8D9A3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = iDoDemo/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.apple.ios.iDoDemo;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 		840343FB22A904190083CA01 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -367,6 +506,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		8401732022AF92AE00C8D9A3 /* Build configuration list for PBXNativeTarget "iDoDemo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8401732122AF92AE00C8D9A3 /* Debug */,
+				8401732222AF92AE00C8D9A3 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		840343EF22A904190083CA01 /* Build configuration list for PBXProject "iDo" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
