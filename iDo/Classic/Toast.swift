@@ -59,13 +59,13 @@ public class Toast: NSObject {
     public var isRounded = false
 
     /// The containerView
-    private var containerView: UIView { get { return UIView(frame: UIScreen.main.bounds) } }
+    private var containerView = UIView(frame: UIScreen.main.bounds)
     
     /// The contentView
-    public var contentView: UIView { get { return UIView() } }
+    private var contentView = UIView()
 
     /// The text's label
-    public var textLabel: UILabel { get { return UILabel() } }
+    private var textLabel = UILabel()
 
     /// Init
     public override init() {
@@ -98,7 +98,7 @@ public extension Toast {
         }
 
         /// Get estimation height of text
-        let textHeight = text.boundingWidth(with: textWidth - 30, fontSize: 16)
+        let textHeight = text.boundingHeight(with: textWidth - 30, fontSize: 16)
 
         /// Set contentView
         contentView.frame = CGRect(x: 0, y: 0, width: textWidth, height: textHeight + 30)
@@ -126,13 +126,21 @@ public extension Toast {
         if containerView.superview == nil {
             UIApplication.shared.keyWindow?.addSubview(containerView)
         }
-        UIView.animate(withDuration: 0.35, animations: {[unowned self] in
-            self.contentView.center = self.containerView.center
-        }) {[unowned self] _ in
-            /// After duration later. hide toast
-            DispatchQueue.main.asyncAfter(deadline: .now() + Double(duration.rawValue)) {[unowned self] in
-                self.contentView.alpha = 0
-                self.containerView.removeFromSuperview()
+        UIView.animate(withDuration: 0.35) {[unowned self] in
+            self.contentView.alpha = 1
+            if location == .center {
+                self.contentView.center = self.containerView.center
+            } else {
+                self.contentView.frame.origin.y = self.containerView.frame.height - self.contentView.frame.height - 65
+            }
+        }
+        
+        /// After duration later. hide toast
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.35 + Double(duration.rawValue) / 1000) {[unowned contentView, containerView] in
+            UIView.animate(withDuration: 0.35, animations: { [unowned contentView] in
+                contentView.alpha = 0
+            }) { [unowned containerView] _ in
+                containerView.removeFromSuperview()
             }
         }
     }
