@@ -1,6 +1,6 @@
 //
 //  MediaProtocols.swift
-//  Declare some of the protocols that we used later
+//  Declare some of the protocols that used for medias
 //
 //  Created by admin on 2019/6/6.
 //  Copyright © 2019 Conjur. All rights reserved.
