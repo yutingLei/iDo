@@ -38,7 +38,7 @@ public class DatePicker: NSObject {
     public static let shared = DatePicker()
 
     /// Located at
-    public var located: Location = .center
+    public var located: Location = .center { didSet { layoutSubviews() } }
 
     /// The date's format
     public var dateFormat: String = "yyyy-MM-dd"
@@ -109,6 +109,7 @@ public class DatePicker: NSObject {
         submitButton.addTarget(self, action: #selector(dismiss), for: .touchUpInside)
         submitButton.backgroundColor = .white
         contentView.addSubview(submitButton)
+        layoutSubviews()
     }
 }
 
@@ -116,24 +117,6 @@ public extension DatePicker {
 
     /// Show with selected handler
     func show(with selectedHandler: SelectedHandler?) {
-
-        /// Layout subviews
-        if located == .center {
-            contentView.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width * 0.7, height: 290)
-            contentView.center = containerView.center
-            titleLabel.frame = CGRect(x: 0, y: 0, width: contentView.frame.width, height: 40)
-            picker.frame = CGRect(x: 0, y: 40, width: contentView.frame.width, height: 200)
-            cancelButton.frame = CGRect(x: 0, y: 241, width: contentView.frame.width / 2, height: 50)
-            submitButton.frame = CGRect(x: contentView.frame.width / 2 + 1, y: 241, width: contentView.frame.width / 2, height: 50)
-        } else {
-            contentView.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width * 0.9, height: 250)
-            contentView.center.x = containerView.center.x
-            contentView.frame.origin.y = containerView.frame.height
-            cancelButton.frame = CGRect(x: 0, y: 0, width: 80, height: 50)
-            titleLabel.frame = CGRect(x: 80, y: 0, width: contentView.frame.width - 160, height: 50)
-            submitButton.frame = CGRect(x: contentView.frame.width - 80, y: 0, width: 80, height: 50)
-            picker.frame = CGRect(x: 0, y: 50, width: contentView.frame.width, height: 200)
-        }
 
         /// Set titles
         titleLabel.text = title
@@ -167,6 +150,26 @@ public extension DatePicker {
 }
 
 private extension DatePicker {
+
+    /// Layout subviews
+    func layoutSubviews() {
+        if located == .center {
+            contentView.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width * 0.7, height: 290)
+            contentView.center = containerView.center
+            titleLabel.frame = CGRect(x: 0, y: 0, width: contentView.frame.width, height: 40)
+            picker.frame = CGRect(x: 0, y: 40, width: contentView.frame.width, height: 200)
+            cancelButton.frame = CGRect(x: 0, y: 241, width: contentView.frame.width / 2, height: 50)
+            submitButton.frame = CGRect(x: contentView.frame.width / 2 + 1, y: 241, width: contentView.frame.width / 2, height: 50)
+        } else {
+            contentView.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width * 0.9, height: 250)
+            contentView.center.x = containerView.center.x
+            contentView.frame.origin.y = containerView.frame.height
+            cancelButton.frame = CGRect(x: 0, y: 0, width: 80, height: 50)
+            titleLabel.frame = CGRect(x: 80, y: 0, width: contentView.frame.width - 160, height: 50)
+            submitButton.frame = CGRect(x: contentView.frame.width - 80, y: 0, width: 80, height: 50)
+            picker.frame = CGRect(x: 0, y: 50, width: contentView.frame.width, height: 200)
+        }
+    }
 
     /// Dismiss datePicker
     @objc func dismiss(_ sender: UIButton) {
