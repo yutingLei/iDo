@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		840172FD22AF445200C8D9A3 /* AlertProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840172FC22AF445200C8D9A3 /* AlertProtocols.swift */; };
+		8401730222AF4D7600C8D9A3 /* String+iDo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8401730122AF4D7600C8D9A3 /* String+iDo.swift */; };
 		840343FA22A904190083CA01 /* iDo.h in Headers */ = {isa = PBXBuildFile; fileRef = 840343F822A904190083CA01 /* iDo.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8403440122A904D70083CA01 /* UIView+iDo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8403440022A904D70083CA01 /* UIView+iDo.swift */; };
 		8403440322A90AC00083CA01 /* MediaProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8403440222A90AC00083CA01 /* MediaProtocols.swift */; };
@@ -17,6 +18,7 @@
 
 /* Begin PBXFileReference section */
 		840172FC22AF445200C8D9A3 /* AlertProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertProtocols.swift; sourceTree = "<group>"; };
+		8401730122AF4D7600C8D9A3 /* String+iDo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+iDo.swift"; sourceTree = "<group>"; };
 		840343F522A904190083CA01 /* iDo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = iDo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		840343F822A904190083CA01 /* iDo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = iDo.h; sourceTree = "<group>"; };
 		840343F922A904190083CA01 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -69,6 +71,7 @@
 		8403440422A915550083CA01 /* Cocoa */ = {
 			isa = PBXGroup;
 			children = (
+				8401730122AF4D7600C8D9A3 /* String+iDo.swift */,
 				8403440022A904D70083CA01 /* UIView+iDo.swift */,
 				8403440522A915920083CA01 /* UIViewController+iDo.swift */,
 			);
@@ -155,6 +158,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8403440822A9160B0083CA01 /* iDo.swift in Sources */,
+				8401730222AF4D7600C8D9A3 /* String+iDo.swift in Sources */,
 				8403440622A915920083CA01 /* UIViewController+iDo.swift in Sources */,
 				840172FD22AF445200C8D9A3 /* AlertProtocols.swift in Sources */,
 				8403440122A904D70083CA01 /* UIView+iDo.swift in Sources */,
