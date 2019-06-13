@@ -37,6 +37,9 @@ public class DatePicker: NSObject {
     /// Singleton instance
     public static let shared = DatePicker()
 
+    /// The datePicker's mode
+    public var dateMode: UIDatePicker.Mode! { didSet { picker.datePickerMode = dateMode } }
+
     /// Located at
     public var located: Location = .center { didSet { layoutSubviews() } }
 
@@ -61,8 +64,11 @@ public class DatePicker: NSObject {
     /// The picker's view
     private var picker = UIDatePicker()
 
+    /// The backgroundView
+    private var backgroundView = UIView(frame: UIScreen.main.bounds)
+
     /// The containerView
-    private var containerView = UIView(frame: UIScreen.main.bounds)
+    private var containerView = UIView()
 
     /// The contentView
     private var contentView = UIView()
@@ -80,9 +86,12 @@ public class DatePicker: NSObject {
     /// Init with mode
     public init(mode: UIDatePicker.Mode = .date) {
         super.init()
+        self.dateMode = mode
+        backgroundView.backgroundColor = UIColor.black.withAlphaComponent(0.15)
+        backgroundView.alpha = 0
 
-        containerView.backgroundColor = UIColor.black.withAlphaComponent(0.15)
-        containerView.alpha = 0
+        containerView.backgroundColor = .clear
+        backgroundView.addSubview(containerView)
 
         contentView.backgroundColor = UIColor.rgb(230, 230, 230)
         contentView.layer.cornerRadius = 8
@@ -124,17 +133,17 @@ public extension DatePicker {
         submitButton.setTitle(submitTitle, for: .normal)
 
         /// Add to window
-        if containerView.superview == nil {
-            UIApplication.shared.keyWindow?.addSubview(containerView)
+        if backgroundView.superview == nil {
+            UIApplication.shared.keyWindow?.addSubview(backgroundView)
         }
 
         /// Animations
         UIView.animate(withDuration: 0.35) {[unowned self] in
-            self.containerView.alpha = 1
+            self.backgroundView.alpha = 1
             if self.located == .center {
-                self.contentView.center = self.containerView.center
+                self.containerView.center = self.backgroundView.center
             } else {
-                self.contentView.frame.origin.y = self.containerView.frame.height - self.contentView.frame.height - 25
+                self.containerView.frame.origin.y = self.backgroundView.frame.height - self.containerView.frame.height - 25
             }
         }
 
@@ -154,20 +163,39 @@ private extension DatePicker {
     /// Layout subviews
     func layoutSubviews() {
         if located == .center {
-            contentView.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width * 0.7, height: 290)
-            contentView.center = containerView.center
+            let minWidth = max(UIScreen.main.bounds.width, 250)
+            containerView.frame = CGRect(x: 0, y: 0, width: minWidth, height: 290)
+            containerView.center = backgroundView.center
+
+            contentView.frame = containerView.bounds
+
             titleLabel.frame = CGRect(x: 0, y: 0, width: contentView.frame.width, height: 40)
             picker.frame = CGRect(x: 0, y: 40, width: contentView.frame.width, height: 200)
             cancelButton.frame = CGRect(x: 0, y: 241, width: contentView.frame.width / 2, height: 50)
             submitButton.frame = CGRect(x: contentView.frame.width / 2 + 1, y: 241, width: contentView.frame.width / 2, height: 50)
+
+            if cancelButton.superview != contentView {
+                cancelButton.layer.cornerRadius = 0
+                cancelButton.layer.masksToBounds = false
+                contentView.addSubview(cancelButton)
+            }
         } else {
-            contentView.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width * 0.9, height: 250)
-            contentView.center.x = containerView.center.x
-            contentView.frame.origin.y = containerView.frame.height
-            cancelButton.frame = CGRect(x: 0, y: 0, width: 80, height: 50)
-            titleLabel.frame = CGRect(x: 80, y: 0, width: contentView.frame.width - 160, height: 50)
-            submitButton.frame = CGRect(x: contentView.frame.width - 80, y: 0, width: 80, height: 50)
-            picker.frame = CGRect(x: 0, y: 50, width: contentView.frame.width, height: 200)
+            containerView.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width * 0.9, height: 340)
+            containerView.center.x = backgroundView.center.x
+            containerView.frame.origin.y = backgroundView.frame.height
+
+            contentView.frame = CGRect(x: 0, y: 0, width: containerView.frame.width, height: 285)
+
+            titleLabel.frame = CGRect(x: 0, y: 0, width: contentView.frame.width, height: 40)
+            picker.frame = CGRect(x: 0, y: 40, width: contentView.frame.width, height: 200)
+
+            submitButton.frame = CGRect(x: 0, y: 241, width: contentView.frame.width, height: 45)
+            cancelButton.frame = CGRect(x: 0, y: 296, width: contentView.frame.width, height: 45)
+            if cancelButton.superview != containerView {
+                cancelButton.layer.cornerRadius = 5
+                cancelButton.layer.masksToBounds = true
+                containerView.addSubview(cancelButton)
+            }
         }
     }
 
@@ -186,12 +214,12 @@ private extension DatePicker {
 
         /// Hide datePicker
         UIView.animate(withDuration: 0.35, animations: {[unowned self] in
-            self.containerView.alpha = 0
+            self.backgroundView.alpha = 0
             if self.located == .bottom {
-                self.contentView.frame.origin.y = self.containerView.frame.height
+                self.containerView.frame.origin.y = self.backgroundView.frame.height
             }
         }) {[unowned self] _ in
-            self.containerView.removeFromSuperview()
+            self.backgroundView.removeFromSuperview()
         }
     }
 }
