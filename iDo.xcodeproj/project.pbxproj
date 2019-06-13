@@ -101,6 +101,13 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		8402EC1E22B1FF41006B03BD /* Poper */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Poper;
+			sourceTree = "<group>";
+		};
 		840343EB22A904190083CA01 = {
 			isa = PBXGroup;
 			children = (
@@ -123,6 +130,7 @@
 		840343F722A904190083CA01 /* iDo */ = {
 			isa = PBXGroup;
 			children = (
+				8402EC1E22B1FF41006B03BD /* Poper */,
 				8401730422AF597500C8D9A3 /* Classic */,
 				8403440422A915550083CA01 /* Cocoa */,
 				840343F822A904190083CA01 /* iDo.h */,
