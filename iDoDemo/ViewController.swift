@@ -17,9 +17,9 @@ class ViewController: UIViewController {
     }
 
     @IBAction func onTouched(_ sender: Any) {
-        DatePicker.shared.show { dateInfo in
-            print(dateInfo)
-        }
+        DateRangePicker.shared.located = .bottom
+        DateRangePicker.shared.shortcuts = DateRangePicker.Shortcut.all
+        DateRangePicker.shared.show(with: nil)
     }
 }
 

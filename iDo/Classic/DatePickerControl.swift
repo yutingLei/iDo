@@ -34,14 +34,14 @@ public extension DatePickerControl {
 public class DatePickerControl: NSObject {
 
     /// Typealise functions
-    public typealias SignleSelectedHandler = (([Key: Any]) -> Void)
+    public typealias SingleSelectedHandler = (([Key: Any]) -> Void)
     public typealias RangeSelectedHandler = (([Key: Any], [Key: Any]) -> Void)
 
     /// DatePicker's mode(default is .date)
-    public var datePickerMode: UIDatePicker.Mode = .date
+    public var datePickerMode: UIDatePicker.Mode = .date { didSet { setDateMode() } }
 
     /// Where DatePicker's view located
-    public var located: Location = .center
+    public var located: Location = .center { didSet { layoutSubviews() } }
 
     /// The date's format string when selected('yyyy-MM-dd')
     public var dateFormat: String = "yyyy-MM-dd" { willSet { dateFormatter.dateFormat = newValue } }
@@ -56,7 +56,7 @@ public class DatePickerControl: NSObject {
     var dateFormatter = DateFormatter()
 
     /// The backgroundView
-    var backgroundView = UIView()
+    var backgroundView = UIView(frame: UIScreen.main.bounds)
 
     /// The containerView
     var containerView = UIView()
@@ -96,6 +96,27 @@ public class DatePickerControl: NSObject {
 }
 
 extension DatePickerControl {
+
+    /// Set mode
+    @objc func setDateMode() {}
+
+    /// Layout subviews
+    @objc func layoutSubviews() {
+        if located == .center {
+            if cancelButton.superview != contentView {
+                cancelButton.layer.cornerRadius = 0
+                cancelButton.layer.masksToBounds = false
+                contentView.addSubview(cancelButton)
+            }
+        } else {
+            if cancelButton.superview != containerView {
+                cancelButton.layer.cornerRadius = 5
+                cancelButton.layer.masksToBounds = true
+                containerView.addSubview(cancelButton)
+            }
+        }
+    }
+
     /// Show DatePicker
     func show() {
         /// Add to window

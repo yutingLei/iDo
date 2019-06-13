@@ -42,30 +42,13 @@ public extension DateRangePicker {
     }
 }
 
-public class DateRangePicker: NSObject {
-    /// Typealise handler when selected
-    public typealias SelectedHandler = (([DatePicker.Key: Any], [DatePicker.Key: Any]) -> Void)
+public class DateRangePicker: DatePickerControl {
 
     /// Singleton instance
     public static let shared = DateRangePicker()
 
-    /// The datePicker's mode
-    public var dateMode: UIDatePicker.Mode! { didSet { setDateMode() } }
-
     /// The shortcuts
     public var shortcuts: [Shortcut]? { didSet { setShortcuts() } }
-
-    /// Located at
-    public var located: DatePicker.Location = .center { didSet { layoutSubviews() } }
-
-    /// The date's format
-    public var dateFormat: String = "yyyy-MM-dd"
-
-    /// The cancel button's title
-    public var cancelTitle: String = "取消"
-
-    /// The submit button's title
-    public var submitTitle: String = "确定"
 
     /// The title
     public var beginTitle: String = "请选择起始日期"
@@ -81,43 +64,20 @@ public class DateRangePicker: NSObject {
     private var beginPicker = UIDatePicker()
     private var endPicker = UIDatePicker()
 
-    /// The backgroundView
-    private var backgroundView = UIView(frame: UIScreen.main.bounds)
-
-    /// The containerView
-    private var containerView = UIView()
-
-    /// The contentView
-    private var contentView = UIView()
-
     /// The title label
     private var beginTitleLabel = UILabel()
     private var endTitleLabel = UILabel()
-
-    /// The cancel/submit button
-    private var cancelButton = UIButton()
-    private var submitButton = UIButton()
 
     /// The backgroundView of shortcuts
     private lazy var shortcutsContainer = UIScrollView()
 
     /// The selected handler
-    private var selectedHandler: SelectedHandler?
+    private var selectedHandler: RangeSelectedHandler?
 
     /// Init with mode
     public init(mode: UIDatePicker.Mode = .date) {
         super.init()
-        self.dateMode = mode
-        backgroundView.backgroundColor = UIColor.black.withAlphaComponent(0.15)
-        backgroundView.alpha = 0
-
-        containerView.backgroundColor = .clear
-        backgroundView.addSubview(containerView)
-
-        contentView.backgroundColor = UIColor.rgb(230, 230, 230)
-        contentView.layer.cornerRadius = 8
-        contentView.layer.masksToBounds = true
-        containerView.addSubview(contentView)
+        self.datePickerMode = mode
 
         beginPicker.datePickerMode = mode
         beginPicker.locale = Locale(identifier: "zh")
@@ -140,16 +100,6 @@ public class DateRangePicker: NSObject {
         endTitleLabel.textAlignment = .center
         endTitleLabel.textColor = UIColor.rgb(54, 55, 56)
         contentView.addSubview(endTitleLabel)
-
-        cancelButton.setTitleColor(UIColor(hex: "#F56C6C"), for: .normal)
-        cancelButton.addTarget(self, action: #selector(dismiss), for: .touchUpInside)
-        cancelButton.backgroundColor = .white
-        contentView.addSubview(cancelButton)
-
-        submitButton.setTitleColor(UIColor(hex: "#67C23A"), for: .normal)
-        submitButton.addTarget(self, action: #selector(dismiss), for: .touchUpInside)
-        submitButton.backgroundColor = .white
-        contentView.addSubview(submitButton)
         layoutSubviews()
     }
 }
@@ -157,7 +107,7 @@ public class DateRangePicker: NSObject {
 public extension DateRangePicker {
 
     /// Show with selected handler
-    func show(with selectedHandler: SelectedHandler?) {
+    func show(with selectedHandler: RangeSelectedHandler?) {
 
         /// Set titles
         beginTitleLabel.text = beginTitle
@@ -165,27 +115,13 @@ public extension DateRangePicker {
         cancelButton.setTitle(cancelTitle, for: .normal)
         submitButton.setTitle(submitTitle, for: .normal)
 
-        /// Add to window
-        if backgroundView.superview == nil {
-            UIApplication.shared.keyWindow?.addSubview(backgroundView)
-        }
-
-        /// Animations
-        UIView.animate(withDuration: 0.35) {[unowned self] in
-            self.backgroundView.alpha = 1
-            if self.located == .center {
-                self.containerView.center = self.backgroundView.center
-            } else {
-                self.containerView.frame.origin.y = self.backgroundView.frame.height - self.containerView.frame.height - 25
-            }
-        }
-
         /// Saved handler
         self.selectedHandler = selectedHandler
+        super.show()
     }
 
     /// Show with selected handler
-    class func show(with selectedHandler: SelectedHandler?) {
+    class func show(with selectedHandler: RangeSelectedHandler?) {
         let datePicker = DateRangePicker()
         datePicker.show(with: selectedHandler)
     }
@@ -199,12 +135,12 @@ public extension DateRangePicker {
 }
 
 //MARK: - Settings
-private extension DateRangePicker {
+extension DateRangePicker {
 
     /// Set date's mode
-    func setDateMode() {
-        beginPicker.datePickerMode = dateMode
-        endPicker.datePickerMode = dateMode
+    override func setDateMode() {
+        beginPicker.datePickerMode = datePickerMode
+        endPicker.datePickerMode = datePickerMode
     }
 
     /// Set shortcuts
@@ -235,12 +171,12 @@ private extension DateRangePicker {
     }
 }
 
-private extension DateRangePicker {
+extension DateRangePicker {
 
     /// Estimation width
     func estimationWidth() -> CGFloat {
         let screenWidth = UIScreen.main.bounds.width
-        var widthScale: CGFloat = shortcuts != nil ? 0.9 : 0.7
+        var widthScale: CGFloat = (located == .center) ? 0.7 : 0.9
         if screenWidth == 320 {
             widthScale += 0.05
         }
@@ -248,7 +184,7 @@ private extension DateRangePicker {
     }
 
     /// Layout subviews
-    func layoutSubviews() {
+    override func layoutSubviews() {
         let contentWidth = estimationWidth()
         if located == .center {
             containerView.frame = CGRect(x: 0, y: 0, width: contentWidth, height: 530)
@@ -298,37 +234,13 @@ private extension DateRangePicker {
     }
 
     /// Dismiss datePicker
-    @objc func dismiss(_ sender: UIButton) {
+    @objc override func dismiss(_ sender: UIButton) {
         if sender == submitButton {
-            var beginDateInfo = [DatePicker.Key: Any]()
-            beginDateInfo[.date] = beginPicker.date
-            beginDateInfo[.dateString] = {
-                let formatter = DateFormatter()
-                formatter.dateFormat = dateFormat
-                return formatter.string(from: beginPicker.date)
-            }()
-            beginDateInfo[.timeInterval] = beginPicker.date.timeIntervalSince1970
-
-            var endDateInfo = [DatePicker.Key: Any]()
-            endDateInfo[.date] = endPicker.date
-            endDateInfo[.dateString] = {
-                let formatter = DateFormatter()
-                formatter.dateFormat = dateFormat
-                return formatter.string(from: endPicker.date)
-            }()
-            endDateInfo[.timeInterval] = endPicker.date.timeIntervalSince1970
-            selectedHandler?(beginDateInfo, endDateInfo)
+            selectedHandler?(datesInformation(of: beginPicker), datesInformation(of: endPicker))
         }
 
         /// Hide datePicker
-        UIView.animate(withDuration: 0.35, animations: {[unowned self] in
-            self.backgroundView.alpha = 0
-            if self.located == .bottom {
-                self.containerView.frame.origin.y = self.backgroundView.frame.height
-            }
-        }) {[unowned self] _ in
-            self.backgroundView.removeFromSuperview()
-        }
+        super.dismiss(sender)
     }
 }
 
