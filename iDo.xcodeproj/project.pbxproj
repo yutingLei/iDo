@@ -29,6 +29,8 @@
 		8403440822A9160B0083CA01 /* iDo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8403440722A9160B0083CA01 /* iDo.swift */; };
 		84FF8F5322B3299200C29FB1 /* IDOTextPopover.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84FF8F5222B3299200C29FB1 /* IDOTextPopover.swift */; };
 		84FF8F5522B36BA200C29FB1 /* IDOImagePopover.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84FF8F5422B36BA200C29FB1 /* IDOImagePopover.swift */; };
+		84FF8F5722B3827C00C29FB1 /* IDOSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84FF8F5622B3827C00C29FB1 /* IDOSource.swift */; };
+		84FF8F5A22B382CD00C29FB1 /* IDOSource.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 84FF8F5922B382CD00C29FB1 /* IDOSource.bundle */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -57,6 +59,8 @@
 		8403440722A9160B0083CA01 /* iDo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iDo.swift; sourceTree = "<group>"; };
 		84FF8F5222B3299200C29FB1 /* IDOTextPopover.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IDOTextPopover.swift; sourceTree = "<group>"; };
 		84FF8F5422B36BA200C29FB1 /* IDOImagePopover.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IDOImagePopover.swift; sourceTree = "<group>"; };
+		84FF8F5622B3827C00C29FB1 /* IDOSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IDOSource.swift; sourceTree = "<group>"; };
+		84FF8F5922B382CD00C29FB1 /* IDOSource.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = IDOSource.bundle; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -141,6 +145,7 @@
 		840343F722A904190083CA01 /* iDo */ = {
 			isa = PBXGroup;
 			children = (
+				84FF8F5822B3829D00C29FB1 /* Sources */,
 				8402EC1E22B1FF41006B03BD /* Poper */,
 				8401730422AF597500C8D9A3 /* Classic */,
 				8403440422A915550083CA01 /* Cocoa */,
@@ -163,6 +168,15 @@
 				8403440522A915920083CA01 /* UIViewController+iDo.swift */,
 			);
 			path = Cocoa;
+			sourceTree = "<group>";
+		};
+		84FF8F5822B3829D00C29FB1 /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				84FF8F5622B3827C00C29FB1 /* IDOSource.swift */,
+				84FF8F5922B382CD00C29FB1 /* IDOSource.bundle */,
+			);
+			path = Sources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -267,6 +281,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				84FF8F5A22B382CD00C29FB1 /* IDOSource.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -293,6 +308,7 @@
 				8403440622A915920083CA01 /* UIViewController+iDo.swift in Sources */,
 				8402EC1D22B1F149006B03BD /* IDODatePickerControl.swift in Sources */,
 				8402EC2222B22D12006B03BD /* CGs+iDo.swift in Sources */,
+				84FF8F5722B3827C00C29FB1 /* IDOSource.swift in Sources */,
 				840172FD22AF445200C8D9A3 /* AlertProtocols.swift in Sources */,
 				8403440122A904D70083CA01 /* UIView+iDo.swift in Sources */,
 				8402EC2022B21A7F006B03BD /* IDOPopover.swift in Sources */,
