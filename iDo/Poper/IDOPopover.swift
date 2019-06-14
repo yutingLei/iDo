@@ -228,16 +228,25 @@ extension IDOPopover {
             containerView.frame.size = fixedContentSize
         }
 
+        let refRect = referenceView.convert(referenceView.bounds, to: UIApplication.shared.keyWindow)
         if containerView.frame.width == 0 || (fixedContentSize == nil && contentSize.width != containerView.frame.width) {
             switch referenceLocation {
-            case .left, .right: containerView.frame.size.width = contentSize.width + 16 + arrowHeight
-            default: containerView.frame.size.width = contentSize.width + 16
+            case .left:
+                containerView.frame.size.width = min(contentSize.width + 16 + arrowHeight, refRect.minX - minX)
+            case .right:
+                containerView.frame.size.width = min(contentSize.width + 16 + arrowHeight, maxX - refRect.maxX)
+            default: containerView.frame.size.width = min(contentSize.width + 16, maxW)
             }
         }
         if containerView.frame.height == 0 || (fixedContentSize == nil && contentSize.width != containerView.frame.width) {
             switch referenceLocation {
-            case .left, .right: containerView.frame.size.height = contentSize.height + 16
-            default: containerView.frame.size.height = contentSize.height + 16 + arrowHeight
+            case .left, .right: containerView.frame.size.height = min(contentSize.height + 16, maxH)
+            default:
+                if isContainerViewLocatedAtTop {
+                    containerView.frame.size.height = min(contentSize.height + 16 + arrowHeight, refRect.minY - minY)
+                } else {
+                    containerView.frame.size.height = min(contentSize.height + 16 + arrowHeight, maxY - refRect.maxY)
+                }
             }
         }
         containerView.frame.size.width = min(maxW, containerView.frame.width)
@@ -273,25 +282,6 @@ extension IDOPopover {
     func containerViewRect(with contentSize: CGSize) {
         containerViewSize(with: contentSize)
         containerViewOrigin()
-
-        /// Suitable window
-        /// First, width
-        if containerView.frame.minX < minX {
-            containerView.frame = containerView.frame.offset(dx: minX - containerView.frame.minX)
-        }
-        if containerView.frame.maxX > maxX {
-            containerView.frame = containerView.frame.sub(dw: containerView.frame.maxX - maxX)
-        }
-
-        /// Second, height
-        if containerView.frame.minY < minY {
-            containerView.frame = containerView.frame.offset(dy: minY - containerView.frame.minY,
-                                                             sync: referenceLocation != .left && referenceLocation != .right)
-        }
-        if containerView.frame.maxY > maxY {
-            containerView.frame = containerView.frame.offset(dy: maxY - containerView.frame.maxY,
-                                                             sync: referenceLocation != .left && referenceLocation != .right)
-        }
 
         /// Set contentView's rect
         contentView.frame = containerView.bounds
