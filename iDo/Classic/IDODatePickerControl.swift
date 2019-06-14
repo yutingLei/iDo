@@ -41,7 +41,7 @@ public class IDODatePickerControl: UIView {
     public var datePickerMode: UIDatePicker.Mode = .date { didSet { setDateMode() } }
 
     /// Where DatePicker's view located
-    public var located: Location = .center { didSet { layoutSubviews() } }
+    public var located: Location = .center { didSet { layoutSubviewOfContent() } }
 
     /// The date's format string when selected('yyyy-MM-dd')
     public var dateFormat: String = "yyyy-MM-dd" { willSet { dateFormatter.dateFormat = newValue } }

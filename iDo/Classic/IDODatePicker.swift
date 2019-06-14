@@ -85,7 +85,7 @@ extension IDODatePicker {
 
     /// Layout subviews
     override func layoutSubviewOfContent() {
-        super.layoutSubviews()
+        super.layoutSubviewOfContent()
         if located == .center {
             let minWidth = max(UIScreen.main.bounds.width * 0.7, 280)
             containerView.frame = CGRect(x: 0, y: 0, width: minWidth, height: 290)

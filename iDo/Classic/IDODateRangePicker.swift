@@ -168,7 +168,7 @@ extension IDODateRangePicker {
         contentView.addSubview(shortcutsContainer)
 
         if shortcuts != nil {
-            layoutSubviews()
+            layoutSubviewOfContent()
         } else {
             shortcutsContainer.removeFromSuperview()
         }
@@ -189,6 +189,7 @@ extension IDODateRangePicker {
 
     /// Layout subviews
     override func layoutSubviewOfContent() {
+        super.layoutSubviewOfContent()
         let contentWidth = estimationWidth()
         if located == .center {
             containerView.frame = CGRect(x: 0, y: 0, width: contentWidth, height: 530)
@@ -206,11 +207,6 @@ extension IDODateRangePicker {
             endPicker.frame = CGRect(x: x, y: 280, width: contentView.frame.width - x, height: 200)
             cancelButton.frame = CGRect(x: 0, y: 481, width: contentView.frame.width / 2, height: 50)
             submitButton.frame = CGRect(x: contentView.frame.width / 2 + 1, y: 481, width: contentView.frame.width / 2, height: 50)
-            if cancelButton.superview != contentView {
-                cancelButton.layer.cornerRadius = 0
-                cancelButton.layer.masksToBounds = false
-                contentView.addSubview(cancelButton)
-            }
         } else {
             containerView.frame = CGRect(x: 0, y: 0, width: contentWidth, height: 500)
             containerView.center.x = center.x
@@ -227,13 +223,7 @@ extension IDODateRangePicker {
             endTitleLabel.frame = CGRect(x: x, y: 201, width: contentView.frame.width - x, height: 40)
             endPicker.frame = CGRect(x: x, y: 241, width: contentView.frame.width - x, height: 160)
             submitButton.frame = CGRect(x: 0, y: 402, width: contentView.frame.width, height: 45)
-            
             cancelButton.frame = CGRect(x: 0, y: 455, width: contentView.frame.width, height: 45)
-            if cancelButton.superview != containerView {
-                cancelButton.layer.cornerRadius = 5
-                cancelButton.layer.masksToBounds = true
-                containerView.addSubview(cancelButton)
-            }
         }
     }
 

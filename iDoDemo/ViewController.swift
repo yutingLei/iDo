@@ -16,10 +16,10 @@ class ViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
 
-    @IBAction func onTouched(_ sender: Any) {
-        IDODateRangePicker.shared.located = .bottom
-        IDODateRangePicker.shared.shortcuts = IDODateRangePicker.Shortcut.all
-        IDODateRangePicker.shared.show(with: nil)
+    @IBAction func onTouched(_ sender: UIButton) {
+        let imagePopover = IDOImagePopover(referenceView: sender)
+        imagePopover.remotePath = "https://images.pexels.com/photos/67636/rose-blue-flower-rose-blooms-67636.jpeg?auto=format%2Ccompress&cs=tinysrgb&dpr=1&w=500"
+        imagePopover.show()
     }
 }
 

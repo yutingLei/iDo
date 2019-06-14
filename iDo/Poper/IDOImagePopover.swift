@@ -40,18 +40,30 @@ public class IDOImagePopover: IDOPopover {
     public var isLoading = true
 
     /// Show download button. (default true)
-    public var showDownloadButton = true
+    public var showDownloadButton = true { willSet { downloadButton.isHidden = !newValue } }
 
     /// The imageView
     var imageView = UIImageView()
+
+    /// The download button
+    var downloadButton = UIButton(frame: CGRect(x: 0, y: 0, width: 25, height: 25))
 
     /// Init
     public init(referenceView: UIView) {
         super.init()
         self.referenceView = referenceView
+        contentView.addSubview(imageView)
+        contentView.addSubview(downloadButton)
 
         imageView.contentMode = .scaleAspectFit
-        contentView.addSubview(imageView)
+
+        downloadButton.setImage(IDOSource.getIcon(.download), for: .normal)
+        downloadButton.addTarget(self, action: #selector(onDownload), for: .touchUpInside)
+        downloadButton.imageView?.contentMode = .scaleAspectFit
+        downloadButton.backgroundColor = UIColor.rgb(235, 235, 235)
+        downloadButton.layer.masksToBounds = true
+        downloadButton.layer.cornerRadius = 3
+        downloadButton.isHidden = true
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -65,6 +77,7 @@ public extension IDOImagePopover {
         do {
             containerViewRect(with: try estimationImageSize())
             layoutSubviewOfContentView(with: imageView)
+            layoutDownloadButton()
             super.show()
         } catch {
             print(error.localizedDescription)
@@ -91,12 +104,14 @@ extension IDOImagePopover {
 
         /// If image
         if let image = image {
+            downloadButton.isHidden = !showDownloadButton
             return image.size
         }
 
         /// If local image
         if let localPath = localPath {
             do {
+                downloadButton.isHidden = !showDownloadButton
                 return try loadLocalImage(with: localPath)
             } catch {
                 throw error
@@ -114,6 +129,11 @@ extension IDOImagePopover {
 
         /// Default
         throw error(with: -1000, message: "Maybe you should sets a correct value of 'image'/'localPath'/'remotePath'")
+    }
+
+    /// Layout cancelButton
+    func layoutDownloadButton() {
+        downloadButton.frame.origin = CGPoint(x: contentView.frame.width - 33, y: isContainerViewLocatedAtTop ? 10 : 18)
     }
 }
 
@@ -178,6 +198,7 @@ extension IDOImagePopover {
                     let data = try Data(contentsOf: remoteURL)
                     DispatchQueue.main.async {[weak self] in
                         if let image = UIImage(data: data) {
+                            self?.downloadButton.isHidden = !(self?.showDownloadButton ?? true)
                             self?.imageView.image = image
                             self?.show()
                         }
@@ -191,5 +212,23 @@ extension IDOImagePopover {
         }
 
         throw error(with: -1003, message: "Unavailable remote path.")
+    }
+
+    /// Download image/ save to library
+    @objc func onDownload() {
+        if let image = imageView.image {
+            UIImageWriteToSavedPhotosAlbum(image, self, #selector(image(_:didFinishSavingWithError:contextInfo:)), nil)
+        } else {
+            print("Error: None image will be saved!")
+        }
+    }
+
+    /// On download completion handler
+    @objc func image(_ image: UIImage, didFinishSavingWithError error: Error?, contextInfo: UnsafeRawPointer) {
+        if let error = error {
+            print("Save Image Error: \(error.localizedDescription)")
+        } else {
+            Toast.show("保存成功")
+        }
     }
 }
