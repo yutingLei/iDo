@@ -55,6 +55,7 @@ public class IDOImagePopover: IDOPopover {
         contentView.addSubview(imageView)
         contentView.addSubview(downloadButton)
 
+        imageView.layer.masksToBounds = true
         imageView.contentMode = .scaleAspectFill
 
         downloadButton.setImage(IDOSource.getIcon(.download), for: .normal)
@@ -133,7 +134,7 @@ extension IDOImagePopover {
 
     /// Layout cancelButton
     func layoutDownloadButton() {
-        downloadButton.frame.origin = CGPoint(x: contentView.frame.width - 33, y: isContainerViewLocatedAtTop ? 10 : 18)
+        downloadButton.frame.origin = CGPoint(x: contentView.frame.width - 41, y: isContainerViewLocatedAtTop ? 18 : 26)
     }
 }
 
