@@ -8,7 +8,7 @@
 
 import UIKit
 
-public extension DateRangePicker {
+public extension IDODateRangePicker {
     enum Shortcut: String {
         /// Today, from 00:00:00 to now
         case today          = "今天"
@@ -42,10 +42,10 @@ public extension DateRangePicker {
     }
 }
 
-public class DateRangePicker: DatePickerControl {
+public class IDODateRangePicker: IDODatePickerControl {
 
     /// Singleton instance
-    public static let shared = DateRangePicker()
+    public static let shared = IDODateRangePicker()
 
     /// The shortcuts
     public var shortcuts: [Shortcut]? { didSet { setShortcuts() } }
@@ -108,7 +108,7 @@ public class DateRangePicker: DatePickerControl {
     }
 }
 
-public extension DateRangePicker {
+public extension IDODateRangePicker {
 
     /// Show with selected handler
     func show(with selectedHandler: RangeSelectedHandler?) {
@@ -126,7 +126,7 @@ public extension DateRangePicker {
 
     /// Show with selected handler
     class func show(with selectedHandler: RangeSelectedHandler?) {
-        let datePicker = DateRangePicker()
+        let datePicker = IDODateRangePicker()
         datePicker.show(with: selectedHandler)
     }
 
@@ -139,7 +139,7 @@ public extension DateRangePicker {
 }
 
 //MARK: - Settings
-extension DateRangePicker {
+extension IDODateRangePicker {
 
     /// Set date's mode
     override func setDateMode() {
@@ -175,7 +175,7 @@ extension DateRangePicker {
     }
 }
 
-extension DateRangePicker {
+extension IDODateRangePicker {
 
     /// Estimation width
     func estimationWidth() -> CGFloat {
@@ -249,7 +249,7 @@ extension DateRangePicker {
 }
 
 //MARK: - Calculate date
-private extension DateRangePicker {
+private extension IDODateRangePicker {
     /// Selected shortcut
     @objc func onShortcut(_ sender: UIButton) {
         for view in shortcutsContainer.subviews {

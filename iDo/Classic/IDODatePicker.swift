@@ -8,10 +8,10 @@
 
 import UIKit
 
-public class DatePicker: DatePickerControl {
+public class IDODatePicker: IDODatePickerControl {
 
     /// Singleton instance
-    public static let shared = DatePicker()
+    public static let shared = IDODatePicker()
 
     /// The title
     public var title: String = "请选择日期"
@@ -54,7 +54,7 @@ public class DatePicker: DatePickerControl {
     }
 }
 
-public extension DatePicker {
+public extension IDODatePicker {
 
     /// Show with selected handler
     func show(with selectedHandler: SingleSelectedHandler?) {
@@ -71,12 +71,12 @@ public extension DatePicker {
 
     /// Show with selected handler
     class func show(with selectedHandler: SingleSelectedHandler?) {
-        let datePicker = DatePicker()
+        let datePicker = IDODatePicker()
         datePicker.show(with: selectedHandler)
     }
 }
 
-extension DatePicker {
+extension IDODatePicker {
 
     /// Set date mode
     override func setDateMode() {

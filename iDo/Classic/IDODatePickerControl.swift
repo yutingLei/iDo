@@ -8,7 +8,7 @@
 
 import UIKit
 
-public extension DatePickerControl {
+public extension IDODatePickerControl {
     /// Where the DatePicker's view located
     enum Location {
         case center
@@ -31,7 +31,7 @@ public extension DatePickerControl {
 
 /// An abstract class for DatePicker, please note that don't used it directly,
 /// using DatePicker/DateRangePicker instead.
-public class DatePickerControl: UIView {
+public class IDODatePickerControl: UIView {
 
     /// Typealise functions
     public typealias SingleSelectedHandler = (([Key: Any]) -> Void)
@@ -96,7 +96,7 @@ public class DatePickerControl: UIView {
     }
 }
 
-extension DatePickerControl {
+extension IDODatePickerControl {
 
     /// Set mode
     @objc func setDateMode() {}
@@ -155,7 +155,7 @@ extension DatePickerControl {
     }
 }
 
-extension DatePickerControl {
+extension IDODatePickerControl {
     /// Generate date's info
     func datesInformation(of datePicker: UIDatePicker) -> [Key: Any] {
         var dateInfo = [Key: Any]()

@@ -11,15 +11,15 @@
 		8401730222AF4D7600C8D9A3 /* String+iDo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8401730122AF4D7600C8D9A3 /* String+iDo.swift */; };
 		8401730622AF5A2100C8D9A3 /* Toast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8401730522AF5A2100C8D9A3 /* Toast.swift */; };
 		8401730A22AF7FB900C8D9A3 /* UIColor+iDo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8401730922AF7FB900C8D9A3 /* UIColor+iDo.swift */; };
-		8401730C22AF85A900C8D9A3 /* DatePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8401730B22AF85A900C8D9A3 /* DatePicker.swift */; };
+		8401730C22AF85A900C8D9A3 /* IDODatePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8401730B22AF85A900C8D9A3 /* IDODatePicker.swift */; };
 		8401731422AF92AD00C8D9A3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8401731322AF92AD00C8D9A3 /* AppDelegate.swift */; };
 		8401731622AF92AD00C8D9A3 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8401731522AF92AD00C8D9A3 /* ViewController.swift */; };
 		8401731922AF92AD00C8D9A3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8401731722AF92AD00C8D9A3 /* Main.storyboard */; };
 		8401731B22AF92AE00C8D9A3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8401731A22AF92AE00C8D9A3 /* Assets.xcassets */; };
 		8401731E22AF92AE00C8D9A3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8401731C22AF92AE00C8D9A3 /* LaunchScreen.storyboard */; };
 		8401732422AF92C300C8D9A3 /* iDo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 840343F522A904190083CA01 /* iDo.framework */; };
-		8401732722AF9F9C00C8D9A3 /* DateRangePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8401732622AF9F9C00C8D9A3 /* DateRangePicker.swift */; };
-		8402EC1D22B1F149006B03BD /* DatePickerControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8402EC1C22B1F149006B03BD /* DatePickerControl.swift */; };
+		8401732722AF9F9C00C8D9A3 /* IDODateRangePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8401732622AF9F9C00C8D9A3 /* IDODateRangePicker.swift */; };
+		8402EC1D22B1F149006B03BD /* IDODatePickerControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8402EC1C22B1F149006B03BD /* IDODatePickerControl.swift */; };
 		8402EC2022B21A7F006B03BD /* IDOPopover.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8402EC1F22B21A7F006B03BD /* IDOPopover.swift */; };
 		8402EC2222B22D12006B03BD /* CGs+iDo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8402EC2122B22D12006B03BD /* CGs+iDo.swift */; };
 		840343FA22A904190083CA01 /* iDo.h in Headers */ = {isa = PBXBuildFile; fileRef = 840343F822A904190083CA01 /* iDo.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -35,7 +35,7 @@
 		8401730122AF4D7600C8D9A3 /* String+iDo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+iDo.swift"; sourceTree = "<group>"; };
 		8401730522AF5A2100C8D9A3 /* Toast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Toast.swift; sourceTree = "<group>"; };
 		8401730922AF7FB900C8D9A3 /* UIColor+iDo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+iDo.swift"; sourceTree = "<group>"; };
-		8401730B22AF85A900C8D9A3 /* DatePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePicker.swift; sourceTree = "<group>"; };
+		8401730B22AF85A900C8D9A3 /* IDODatePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IDODatePicker.swift; sourceTree = "<group>"; };
 		8401731122AF92AD00C8D9A3 /* iDoDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iDoDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8401731322AF92AD00C8D9A3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8401731522AF92AD00C8D9A3 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -43,8 +43,8 @@
 		8401731A22AF92AE00C8D9A3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8401731D22AF92AE00C8D9A3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		8401731F22AF92AE00C8D9A3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		8401732622AF9F9C00C8D9A3 /* DateRangePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateRangePicker.swift; sourceTree = "<group>"; };
-		8402EC1C22B1F149006B03BD /* DatePickerControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerControl.swift; sourceTree = "<group>"; };
+		8401732622AF9F9C00C8D9A3 /* IDODateRangePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IDODateRangePicker.swift; sourceTree = "<group>"; };
+		8402EC1C22B1F149006B03BD /* IDODatePickerControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IDODatePickerControl.swift; sourceTree = "<group>"; };
 		8402EC1F22B21A7F006B03BD /* IDOPopover.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IDOPopover.swift; sourceTree = "<group>"; };
 		8402EC2122B22D12006B03BD /* CGs+iDo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGs+iDo.swift"; sourceTree = "<group>"; };
 		840343F522A904190083CA01 /* iDo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = iDo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -80,9 +80,9 @@
 			isa = PBXGroup;
 			children = (
 				8401730522AF5A2100C8D9A3 /* Toast.swift */,
-				8402EC1C22B1F149006B03BD /* DatePickerControl.swift */,
-				8401730B22AF85A900C8D9A3 /* DatePicker.swift */,
-				8401732622AF9F9C00C8D9A3 /* DateRangePicker.swift */,
+				8402EC1C22B1F149006B03BD /* IDODatePickerControl.swift */,
+				8401730B22AF85A900C8D9A3 /* IDODatePicker.swift */,
+				8401732622AF9F9C00C8D9A3 /* IDODateRangePicker.swift */,
 			);
 			path = Classic;
 			sourceTree = "<group>";
@@ -287,16 +287,16 @@
 				8403440822A9160B0083CA01 /* iDo.swift in Sources */,
 				8401730222AF4D7600C8D9A3 /* String+iDo.swift in Sources */,
 				8403440622A915920083CA01 /* UIViewController+iDo.swift in Sources */,
-				8402EC1D22B1F149006B03BD /* DatePickerControl.swift in Sources */,
+				8402EC1D22B1F149006B03BD /* IDODatePickerControl.swift in Sources */,
 				8402EC2222B22D12006B03BD /* CGs+iDo.swift in Sources */,
 				840172FD22AF445200C8D9A3 /* AlertProtocols.swift in Sources */,
 				8403440122A904D70083CA01 /* UIView+iDo.swift in Sources */,
 				8402EC2022B21A7F006B03BD /* IDOPopover.swift in Sources */,
 				8403440322A90AC00083CA01 /* MediaProtocols.swift in Sources */,
-				8401732722AF9F9C00C8D9A3 /* DateRangePicker.swift in Sources */,
+				8401732722AF9F9C00C8D9A3 /* IDODateRangePicker.swift in Sources */,
 				8401730622AF5A2100C8D9A3 /* Toast.swift in Sources */,
 				84FF8F5322B3299200C29FB1 /* IDOTextPopover.swift in Sources */,
-				8401730C22AF85A900C8D9A3 /* DatePicker.swift in Sources */,
+				8401730C22AF85A900C8D9A3 /* IDODatePicker.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
