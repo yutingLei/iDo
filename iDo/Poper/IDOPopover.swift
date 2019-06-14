@@ -228,13 +228,13 @@ extension IDOPopover {
             containerView.frame.size = fixedContentSize
         }
 
-        if containerView.frame.width == 0 {
+        if containerView.frame.width == 0 || (fixedContentSize == nil && contentSize.width != containerView.frame.width) {
             switch referenceLocation {
             case .left, .right: containerView.frame.size.width = contentSize.width + 16 + arrowHeight
             default: containerView.frame.size.width = contentSize.width + 16
             }
         }
-        if containerView.frame.height == 0 {
+        if containerView.frame.height == 0 || (fixedContentSize == nil && contentSize.width != containerView.frame.width) {
             switch referenceLocation {
             case .left, .right: containerView.frame.size.height = contentSize.height + 16
             default: containerView.frame.size.height = contentSize.height + 16 + arrowHeight
@@ -359,5 +359,14 @@ extension IDOPopover {
         }) {[weak self] _ in
             self?.removeFromSuperview()
         }
+    }
+}
+
+//MARK: - Error
+extension IDOPopover {
+    func error(with code: Int, message: String) -> NSError {
+        return NSError(domain: "com.ido.poper",
+                       code: code,
+                       userInfo: [NSLocalizedDescriptionKey: message])
     }
 }
