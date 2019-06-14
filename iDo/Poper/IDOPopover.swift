@@ -285,10 +285,12 @@ extension IDOPopover {
 
         /// Second, height
         if containerView.frame.minY < minY {
-            containerView.frame = containerView.frame.offset(dy: minY - containerView.frame.minY, sync: false)
+            containerView.frame = containerView.frame.offset(dy: minY - containerView.frame.minY,
+                                                             sync: referenceLocation != .left && referenceLocation != .right)
         }
         if containerView.frame.maxY > maxY {
-            containerView.frame = containerView.frame.offset(dy: maxY - containerView.frame.maxY, sync: false)
+            containerView.frame = containerView.frame.offset(dy: maxY - containerView.frame.maxY,
+                                                             sync: referenceLocation != .left && referenceLocation != .right)
         }
 
         /// Set contentView's rect

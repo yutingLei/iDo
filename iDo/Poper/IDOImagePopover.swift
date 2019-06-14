@@ -55,7 +55,7 @@ public class IDOImagePopover: IDOPopover {
         contentView.addSubview(imageView)
         contentView.addSubview(downloadButton)
 
-        imageView.contentMode = .scaleAspectFit
+        imageView.contentMode = .scaleAspectFill
 
         downloadButton.setImage(IDOSource.getIcon(.download), for: .normal)
         downloadButton.addTarget(self, action: #selector(onDownload), for: .touchUpInside)
