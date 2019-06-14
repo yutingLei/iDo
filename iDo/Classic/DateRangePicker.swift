@@ -83,7 +83,7 @@ public class DateRangePicker: DatePickerControl {
         beginPicker.locale = Locale(identifier: "zh")
         beginPicker.backgroundColor = .white
         contentView.addSubview(beginPicker)
-        
+
         endPicker.datePickerMode = mode
         endPicker.locale = Locale(identifier: "zh")
         endPicker.backgroundColor = .white
@@ -94,13 +94,17 @@ public class DateRangePicker: DatePickerControl {
         beginTitleLabel.textAlignment = .center
         beginTitleLabel.textColor = UIColor.rgb(54, 55, 56)
         contentView.addSubview(beginTitleLabel)
-        
+
         endTitleLabel.font = UIFont.boldSystemFont(ofSize: 18)
         endTitleLabel.backgroundColor = .white
         endTitleLabel.textAlignment = .center
         endTitleLabel.textColor = UIColor.rgb(54, 55, 56)
         contentView.addSubview(endTitleLabel)
-        layoutSubviews()
+        layoutSubviewOfContent()
+    }
+
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
 }
 
@@ -184,11 +188,11 @@ extension DateRangePicker {
     }
 
     /// Layout subviews
-    override func layoutSubviews() {
+    override func layoutSubviewOfContent() {
         let contentWidth = estimationWidth()
         if located == .center {
             containerView.frame = CGRect(x: 0, y: 0, width: contentWidth, height: 530)
-            containerView.center = backgroundView.center
+            containerView.center = center
 
             contentView.frame = containerView.bounds
             let x: CGFloat = shortcuts != nil ? 66 : 0
@@ -209,8 +213,8 @@ extension DateRangePicker {
             }
         } else {
             containerView.frame = CGRect(x: 0, y: 0, width: contentWidth, height: 500)
-            containerView.center.x = backgroundView.center.x
-            containerView.frame.origin.y = backgroundView.frame.height
+            containerView.center.x = center.x
+            containerView.frame.origin.y = frame.height
 
             contentView.frame = CGRect(x: 0, y: 0, width: containerView.frame.width, height: 445)
             let x: CGFloat = shortcuts != nil ? 66 : 0

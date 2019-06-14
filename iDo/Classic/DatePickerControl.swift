@@ -31,7 +31,7 @@ public extension DatePickerControl {
 
 /// An abstract class for DatePicker, please note that don't used it directly,
 /// using DatePicker/DateRangePicker instead.
-public class DatePickerControl: NSObject {
+public class DatePickerControl: UIView {
 
     /// Typealise functions
     public typealias SingleSelectedHandler = (([Key: Any]) -> Void)
@@ -55,9 +55,6 @@ public class DatePickerControl: NSObject {
     /// The instance of date format
     var dateFormatter = DateFormatter()
 
-    /// The backgroundView
-    var backgroundView = UIView(frame: UIScreen.main.bounds)
-
     /// The containerView
     var containerView = UIView()
 
@@ -69,29 +66,33 @@ public class DatePickerControl: NSObject {
     var submitButton = UIButton()
 
     /// Init
-    override init() {
-        super.init()
+    init() {
+        super.init(frame: UIScreen.main.bounds)
         dateFormatter.dateFormat = dateFormat
-        backgroundView.backgroundColor = UIColor.black.withAlphaComponent(0.15)
-        backgroundView.alpha = 0
-        
+        alpha = 0
+        backgroundColor = UIColor.black.withAlphaComponent(0.15)
+        addSubview(containerView)
+
         containerView.backgroundColor = .clear
-        backgroundView.addSubview(containerView)
-        
+        containerView.addSubview(contentView)
+
         contentView.backgroundColor = UIColor.rgb(230, 230, 230)
         contentView.layer.cornerRadius = 8
         contentView.layer.masksToBounds = true
-        containerView.addSubview(contentView)
-        
+
         cancelButton.setTitleColor(UIColor(hex: "#F56C6C"), for: .normal)
         cancelButton.addTarget(self, action: #selector(dismiss), for: .touchUpInside)
         cancelButton.backgroundColor = .white
         contentView.addSubview(cancelButton)
-        
+
         submitButton.setTitleColor(UIColor(hex: "#67C23A"), for: .normal)
         submitButton.addTarget(self, action: #selector(dismiss), for: .touchUpInside)
         submitButton.backgroundColor = .white
         contentView.addSubview(submitButton)
+    }
+
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
 }
 
@@ -101,7 +102,7 @@ extension DatePickerControl {
     @objc func setDateMode() {}
 
     /// Layout subviews
-    @objc func layoutSubviews() {
+    @objc func layoutSubviewOfContent() {
         if located == .center {
             if cancelButton.superview != contentView {
                 cancelButton.layer.cornerRadius = 0
@@ -120,30 +121,36 @@ extension DatePickerControl {
     /// Show DatePicker
     func show() {
         /// Add to window
-        if backgroundView.superview == nil {
-            UIApplication.shared.keyWindow?.addSubview(backgroundView)
+        if superview == nil {
+            UIApplication.shared.keyWindow?.addSubview(self)
         }
         
         /// Animations
-        UIView.animate(withDuration: 0.35) {[unowned self] in
-            self.backgroundView.alpha = 1
-            if self.located == .center {
-                self.containerView.center = self.backgroundView.center
-            } else {
-                self.containerView.frame.origin.y = self.backgroundView.frame.height - self.containerView.frame.height - 25
+        UIView.animate(withDuration: 0.35) {[weak self] in
+            if let strongSelf = self {
+                strongSelf.alpha = 1
+                if strongSelf.located == .center {
+                    strongSelf.containerView.center = strongSelf.center
+                } else {
+                    strongSelf.containerView.frame.origin.y = strongSelf.frame.height - strongSelf.containerView.frame.height - 25
+                }
             }
         }
     }
 
     /// Hide datePicker
     @objc func dismiss(_ sender: UIButton) {
-        UIView.animate(withDuration: 0.35, animations: {[unowned self] in
-            self.backgroundView.alpha = 0
-            if self.located == .bottom {
-                self.containerView.frame.origin.y = self.backgroundView.frame.height
+        UIView.animate(withDuration: 0.35, animations: {[weak self] in
+            if let strongSelf = self {
+                strongSelf.alpha = 0
+                if strongSelf.located == .bottom {
+                    strongSelf.containerView.frame.origin.y = strongSelf.frame.height
+                }
             }
-        }) {[unowned self] _ in
-            self.backgroundView.removeFromSuperview()
+        }) {[weak self] _ in
+            if let strongSelf = self {
+                strongSelf.removeFromSuperview()
+            }
         }
     }
 }

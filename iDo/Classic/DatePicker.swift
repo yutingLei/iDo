@@ -46,7 +46,11 @@ public class DatePicker: DatePickerControl {
         titleLabel.textAlignment = .center
         titleLabel.textColor = UIColor.rgb(54, 55, 56)
         contentView.addSubview(titleLabel)
-        layoutSubviews()
+        layoutSubviewOfContent()
+    }
+
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
 }
 
@@ -80,12 +84,12 @@ extension DatePicker {
     }
 
     /// Layout subviews
-    override func layoutSubviews() {
+    override func layoutSubviewOfContent() {
         super.layoutSubviews()
         if located == .center {
             let minWidth = max(UIScreen.main.bounds.width * 0.7, 280)
             containerView.frame = CGRect(x: 0, y: 0, width: minWidth, height: 290)
-            containerView.center = backgroundView.center
+            containerView.center = center
 
             contentView.frame = containerView.bounds
 
@@ -95,8 +99,8 @@ extension DatePicker {
             submitButton.frame = CGRect(x: contentView.frame.width / 2 + 1, y: 241, width: contentView.frame.width / 2, height: 50)
         } else {
             containerView.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width * 0.9, height: 340)
-            containerView.center.x = backgroundView.center.x
-            containerView.frame.origin.y = backgroundView.frame.height
+            containerView.center.x = center.x
+            containerView.frame.origin.y = frame.height
 
             contentView.frame = CGRect(x: 0, y: 0, width: containerView.frame.width, height: 285)
 
