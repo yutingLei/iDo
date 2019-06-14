@@ -63,7 +63,7 @@ public extension String {
                                                     options: .usesLineFragmentOrigin,
                                                     attributes: [.font: UIFont.systemFont(ofSize: fontSize)],
                                                     context: nil).width
-        return width
+        return ceil(width)
     }
 
     /// Get estimation height while drawing
@@ -75,6 +75,6 @@ public extension String {
                                                      options: .usesLineFragmentOrigin,
                                                      attributes: [.font: UIFont.systemFont(ofSize: fontSize)],
                                                      context: nil).height
-        return height
+        return ceil(height)
     }
 }
