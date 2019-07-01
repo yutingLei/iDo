@@ -27,6 +27,8 @@
 		8403440322A90AC00083CA01 /* MediaProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8403440222A90AC00083CA01 /* MediaProtocols.swift */; };
 		8403440622A915920083CA01 /* UIViewController+iDo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8403440522A915920083CA01 /* UIViewController+iDo.swift */; };
 		8403440822A9160B0083CA01 /* iDo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8403440722A9160B0083CA01 /* iDo.swift */; };
+		849B584822B72451009FC132 /* IDOTablePopover.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849B584722B72451009FC132 /* IDOTablePopover.swift */; };
+		849B584A22B78947009FC132 /* UIImage+iDo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849B584922B78947009FC132 /* UIImage+iDo.swift */; };
 		84FF8F5322B3299200C29FB1 /* IDOTextPopover.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84FF8F5222B3299200C29FB1 /* IDOTextPopover.swift */; };
 		84FF8F5522B36BA200C29FB1 /* IDOImagePopover.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84FF8F5422B36BA200C29FB1 /* IDOImagePopover.swift */; };
 		84FF8F5722B3827C00C29FB1 /* IDOSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84FF8F5622B3827C00C29FB1 /* IDOSource.swift */; };
@@ -57,6 +59,8 @@
 		8403440222A90AC00083CA01 /* MediaProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaProtocols.swift; sourceTree = "<group>"; };
 		8403440522A915920083CA01 /* UIViewController+iDo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+iDo.swift"; sourceTree = "<group>"; };
 		8403440722A9160B0083CA01 /* iDo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iDo.swift; sourceTree = "<group>"; };
+		849B584722B72451009FC132 /* IDOTablePopover.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IDOTablePopover.swift; sourceTree = "<group>"; };
+		849B584922B78947009FC132 /* UIImage+iDo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+iDo.swift"; sourceTree = "<group>"; };
 		84FF8F5222B3299200C29FB1 /* IDOTextPopover.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IDOTextPopover.swift; sourceTree = "<group>"; };
 		84FF8F5422B36BA200C29FB1 /* IDOImagePopover.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IDOImagePopover.swift; sourceTree = "<group>"; };
 		84FF8F5622B3827C00C29FB1 /* IDOSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IDOSource.swift; sourceTree = "<group>"; };
@@ -119,6 +123,7 @@
 				8402EC1F22B21A7F006B03BD /* IDOPopover.swift */,
 				84FF8F5222B3299200C29FB1 /* IDOTextPopover.swift */,
 				84FF8F5422B36BA200C29FB1 /* IDOImagePopover.swift */,
+				849B584722B72451009FC132 /* IDOTablePopover.swift */,
 			);
 			path = Poper;
 			sourceTree = "<group>";
@@ -165,6 +170,7 @@
 				8401730122AF4D7600C8D9A3 /* String+iDo.swift */,
 				8401730922AF7FB900C8D9A3 /* UIColor+iDo.swift */,
 				8403440022A904D70083CA01 /* UIView+iDo.swift */,
+				849B584922B78947009FC132 /* UIImage+iDo.swift */,
 				8403440522A915920083CA01 /* UIViewController+iDo.swift */,
 			);
 			path = Cocoa;
@@ -301,6 +307,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				849B584822B72451009FC132 /* IDOTablePopover.swift in Sources */,
 				84FF8F5522B36BA200C29FB1 /* IDOImagePopover.swift in Sources */,
 				8401730A22AF7FB900C8D9A3 /* UIColor+iDo.swift in Sources */,
 				8403440822A9160B0083CA01 /* iDo.swift in Sources */,
@@ -316,6 +323,7 @@
 				8401732722AF9F9C00C8D9A3 /* IDODateRangePicker.swift in Sources */,
 				8401730622AF5A2100C8D9A3 /* Toast.swift in Sources */,
 				84FF8F5322B3299200C29FB1 /* IDOTextPopover.swift in Sources */,
+				849B584A22B78947009FC132 /* UIImage+iDo.swift in Sources */,
 				8401730C22AF85A900C8D9A3 /* IDODatePicker.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

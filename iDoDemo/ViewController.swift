@@ -17,9 +17,9 @@ class ViewController: UIViewController {
     }
 
     @IBAction func onTouched(_ sender: UIButton) {
-        let imagePopover = IDOImagePopover(referenceView: sender)
-        imagePopover.remotePath = "https://images.pexels.com/photos/67636/rose-blue-flower-rose-blooms-67636.jpeg?auto=format%2Ccompress&cs=tinysrgb&dpr=1&w=500"
-        imagePopover.show()
+        let tablePopover = IDOTablePopover(referenceView: sender)
+        tablePopover.contents = ["测试一", "测试二", "再来一个长的字符串"]
+        tablePopover.show()
     }
 }
 

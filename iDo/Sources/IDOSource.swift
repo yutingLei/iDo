@@ -12,6 +12,7 @@ public extension IDOSource {
     /// Icon images
     enum Icon: String {
         case download       = "ido-icon-download.png"
+        case check          = "ido-icon-check.png"
 
         /// Get all available icons
         public static let all: [Icon] = [.download]

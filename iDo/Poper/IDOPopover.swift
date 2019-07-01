@@ -9,7 +9,7 @@
 import UIKit
 
 /// Protocol
-public protocol IDOPopoverProtocol: NSObjectProtocol {}
+@objc public protocol IDOPopoverProtocol: NSObjectProtocol {}
 
 public extension IDOPopover {
     /// Reference location

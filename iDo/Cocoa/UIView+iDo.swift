@@ -102,9 +102,9 @@ public extension UIView {
     func width(equalTo aView: UIView? = nil, multiplier: CGFloat = 1, constant: CGFloat) {
         translatesAutoresizingMaskIntoConstraints = false
         if let aView = aView {
-            widthAnchor.constraint(equalTo: aView.widthAnchor, multiplier: multiplier, constant: constant)
+            widthAnchor.constraint(equalTo: aView.widthAnchor, multiplier: multiplier, constant: constant).isActive = true
         } else {
-            widthAnchor.constraint(equalToConstant: constant)
+            widthAnchor.constraint(equalToConstant: constant).isActive = true
         }
     }
 
@@ -115,9 +115,9 @@ public extension UIView {
     func height(equalTo aView: UIView? = nil, multiplier: CGFloat = 1, constant: CGFloat) {
         translatesAutoresizingMaskIntoConstraints = false
         if let aView = aView {
-            heightAnchor.constraint(equalTo: aView.heightAnchor, multiplier: multiplier, constant: constant)
+            heightAnchor.constraint(equalTo: aView.heightAnchor, multiplier: multiplier, constant: constant).isActive = true
         } else {
-            heightAnchor.constraint(equalToConstant: constant)
+            heightAnchor.constraint(equalToConstant: constant).isActive = true
         }
     }
 
@@ -127,7 +127,7 @@ public extension UIView {
     /// @constant: 约束值，默认0
     func centerX(to aView: UIView, constant: CGFloat = 0) {
         translatesAutoresizingMaskIntoConstraints = false
-        centerXAnchor.constraint(equalTo: aView.centerXAnchor, constant: constant)
+        centerXAnchor.constraint(equalTo: aView.centerXAnchor, constant: constant).isActive = true
     }
 
     /// 纵向居中
@@ -136,7 +136,7 @@ public extension UIView {
     /// @constant: 约束值，默认0
     func centerY(to aView: UIView, constant: CGFloat = 0) {
         translatesAutoresizingMaskIntoConstraints = false
-        centerYAnchor.constraint(equalTo: aView.centerYAnchor, constant: constant)
+        centerYAnchor.constraint(equalTo: aView.centerYAnchor, constant: constant).isActive = true
     }
 }
 
