@@ -24,6 +24,15 @@ public extension UIView {
             return nil
         }
     }
+
+    /// A convenience property to set corner radius
+    var cornerRadius: CGFloat {
+        get { return layer.cornerRadius }
+        set {
+            layer.cornerRadius = newValue
+            layer.masksToBounds = newValue > 0
+        }
+    }
 }
 
 //MARK: - Constraints
