@@ -347,7 +347,7 @@ extension IDOPopover {
     /// Dismiss with animations
     func dismissWithAnimations() {
         UIView.animate(withDuration: 0.35, animations: {[weak self] in
-            self?.alpha = 1
+            self?.alpha = 0
         }) {[weak self] _ in
             self?.removeFromSuperview()
         }

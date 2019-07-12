@@ -14,24 +14,35 @@ import UIKit
     /// Whether the rows can be selected
     /// Also, we can detect the keys 'isDisabled' | 'disabled' in contents to determine whether it can
     /// be select. But this function has the higher priority
-    @objc optional func canSelect(_ popover: IDOTablePopover, at index: Int) -> Bool
+    @objc optional func tablePopover(_ popover: IDOTablePopover, disabledRowAt index: Int) -> Bool
 
-    /// Whether the row is selected
-    @objc optional func isSelected(_ popover: IDOTablePopover, at index: Int) -> Bool
+    /// The height of each rows in table
+    /// Default is 50
+    @objc optional func tablePopover(_ popover: IDOTablePopover, heightOfRowAt index: Int) -> CGFloat
 
-    /// Selected
-    @objc optional func tablePopover(_ popover: IDOTablePopover, selectedAt index: Int)
+    /// When selected contents
+    @objc optional func tablePopover(_ popover: IDOTablePopover, didSelectRowAt index: Int)
 }
 
 public class IDOTablePopover: IDOPopover {
 
-    /// Show the network activity while loading remote contents.
-    /// Default is true
-    public var isLoading = true { didSet { setLoading() } }
+    /// Row's style
+    public enum RowStyle {
+        case `default`      /// Pure text
+        case value1         /// Left icon and right text
+        case value2         /// Left text and right icon
+        case subtitle1      /// Top text and bottom subtitle
+        case subtitle2      /// Left title and right subtitle
+    }
 
-    /// Show the label when null data.
+    /// Show the actity indicator when null contents
     /// Default is true
-    public var isNullData = true { didSet { setNullDataLabel() } }
+    public var showLoadingWhenNullContent = true
+
+    /// Show the null data's label when empty contents.
+    /// Default is true
+    /// Note: empty is not equal null
+    public var showTextsWhenEmptyContent = true
 
     /// How the text will be shown when null data occurred.
     /// Default is  "未找到数据"
@@ -44,13 +55,13 @@ public class IDOTablePopover: IDOPopover {
     /// If nil. typeof(contents) must be type [String]
     /// If not nil, dependency ContentType
     /// case .pureText, need one key at least.
-    /// case .iconText, need two keys at least, and the first for icon, second for text
-    /// case .textIcon, need two keys at least, and the first for text, second for icon
+    /// case .value1, need two keys at least, and the first for icon, second for text
+    /// case .value2, need two keys at least, and the first for text, second for icon
     /// case .subtitle[1|2], need two keys at least, and the first for title, second for subtitle
     public var extendKeys: [String]?
 
-    /// The config of cells
-    private(set) public var cellsConfig: IDOTablePopoverCellsConfiguration!
+    /// Is multiple select
+    public var isMultipleSelect: Bool = false
 
     /// The table view
     var tableView = UITableView()
@@ -61,23 +72,41 @@ public class IDOTablePopover: IDOPopover {
     /// The label for null data
     lazy var nullDataLabel = UILabel()
 
-    /// Init
-    public init(referenceView: UIView, with configuration: IDOTablePopoverCellsConfiguration = IDOTablePopoverCellsConfiguration()) {
-        super.init()
-        self.referenceView = referenceView
-        self.cellsConfig = configuration
+    /// The row's style
+    private var rowStyle: RowStyle!
 
-        contentView.addSubview(tableView)
+    /// The current index of selected row
+    private var selectedIndexes: [Int] = []
+
+    /// The selections handler
+    private var _selectedHandler: ((IDOTablePopover, [Int]) -> Void)?
+
+    /// Init
+    public init(referenceView: UIView, rowStyle: RowStyle = .default) {
+        super.init()
+        self.rowStyle = rowStyle
+        self.referenceView = referenceView
 
         tableView.separatorStyle = .none
         tableView.tableFooterView = UIView()
         tableView.dataSource = self
         tableView.delegate = self
-        tableView.separatorColor = configuration.separatorColor
-        tableView.separatorInset = configuration.separatorInsets
-        tableView.separatorStyle = configuration.separatorColor == nil ? .none : .singleLine
+        tableView.showsVerticalScrollIndicator = false
+        tableView.showsHorizontalScrollIndicator = false
+        contentView.addSubview(tableView)
     }
-    
+
+    /// Init with completion handler
+    /// You should known that this initializer only suitable for .default style of rows
+    ///
+    /// Handle params:
+    ///     - IDOTablePoper: The object of table popover
+    ///     - [Int]:         Which the rows selected already.
+    public convenience init(referenceView: UIView, onSelected handler: @escaping ((IDOTablePopover, [Int]) -> Void)) {
+        self.init(referenceView: referenceView, rowStyle: .default)
+        _selectedHandler = handler
+    }
+
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -86,13 +115,38 @@ public class IDOTablePopover: IDOPopover {
 //MARK: Show & hide
 public extension IDOTablePopover {
 
-    /// Show
+    /// Show popover
+    /// Note: You should invoke again if the popover
+    /// already shown while set some properties
     override func show() {
         do {
+            defer {
+                super.show()
+            }
+
+            /// First. null contents
+            if contents == nil {
+                setLoading()
+                containerViewRect(with: CGSize(width: 120, height: 120))
+                layoutSubviewOfContentView(with: loadingActivity)
+                return
+            } else {
+                loadingActivity.isHidden = true
+            }
+
+            /// Second. empty contents
+            if contents != nil, contents!.isEmpty {
+                setNullDataLabel()
+                containerViewRect(with: CGSize(width: 120, height: 120))
+                layoutSubviewOfContentView(with: nullDataLabel)
+                return
+            } else {
+                nullDataLabel.isHidden = true
+            }
+
             containerViewRect(with: try estimationSize())
             layoutSubviewOfContentView(with: tableView)
             tableView.reloadData()
-            super.show()
         } catch {
             print(error.localizedDescription)
         }
@@ -106,23 +160,24 @@ extension IDOTablePopover {
     func setLoading() {
         if loadingActivity.superview == nil {
             loadingActivity.style = .gray
+            loadingActivity.backgroundColor = .white
             contentView.addSubview(loadingActivity)
         }
-        loadingActivity.frame = contentView.bounds
-        loadingActivity.isHidden = !isLoading
+        loadingActivity.startAnimating()
+        loadingActivity.isHidden = false
         contentView.bringSubviewToFront(loadingActivity)
     }
 
     /// Set null data
     func setNullDataLabel() {
         if nullDataLabel.superview == nil {
+            nullDataLabel.backgroundColor = .white
             nullDataLabel.textColor = UIColor.rgb(200, 200, 200)
             nullDataLabel.font = UIFont.systemFont(ofSize: 14)
             nullDataLabel.textAlignment = .center
             contentView.addSubview(nullDataLabel)
         }
-        nullDataLabel.frame = contentView.bounds
-        nullDataLabel.isHidden = !isNullData
+        nullDataLabel.isHidden = false
         nullDataLabel.text = textForNullData
         contentView.bringSubviewToFront(nullDataLabel)
     }
@@ -134,65 +189,109 @@ extension IDOTablePopover {
     /// Estimation content's size
     func estimationSize() throws -> CGSize {
         var contentSize = fixedContentSize ?? CGSize.zero
-        let refRect = referenceView.convert(referenceView.bounds, to: UIApplication.shared.keyWindow)
+
+        /// Get texts from contents
+        let texts = getTexts()
         
         /// Width
         if contentSize.width == 0 {
-            if let contents = contents as? [String] {
-                contentSize.width = maxLength(of: contents, with: cellsConfig.titlesFontSize)
-                if cellsConfig.shouldAddedIndicator {
-                    contentSize.width += 33
+
+            var totalWidth: CGFloat = 0
+            /// Get the max length of texts.0
+            if let titles = texts.0 {
+                totalWidth = maxLength(of: titles, with: 15)
+            }
+
+            /// Get the max length of texts.1
+            if let subtitles = texts.1 {
+                let ml = maxLength(of: subtitles, with: 13)
+                if ((rowStyle != .default) && (rowStyle != .subtitle2)) {
+                    totalWidth += ml
+                } else {
+                    totalWidth = max(totalWidth, ml)
                 }
             }
-            if let contents = contents as? [[String: Any]] {
-                guard let keys = extendKeys, keys.count >= 1 else {
-                    throw error(with: -1004, message: "The 'extendKeys' mustn't be nil while type of 'contents' is [[String: Any]].")
-                }
-                switch cellsConfig.contentType {
-                case .pureText:
-                    contentSize.width = maxLength(of: contents.compactMap({ $0[keys[0]] as? String }),
-                                                              with: cellsConfig.titlesFontSize)
-                    if cellsConfig.shouldAddedIndicator {
-                        contentSize.width += 33
-                    }
-                default:
-                    guard keys.count >= 2 else {
-                        throw error(with: -1005, message: "The count of 'extendKeys' must be greater than 2 when 'cellsConfig.ContentType' is .iconText or .textIcon")
-                    }
-                    let indexOfKeys = cellsConfig.contentType == .iconText ? 1 : 0
-                    let fTexts = contents.compactMap({ $0[keys[indexOfKeys]] as? String })
-                    let sTexts = contents.compactMap({ $0[keys[1]] as? String })
-                    contentSize.width = max(maxLength(of: fTexts, with: cellsConfig.titlesFontSize),
-                                            maxLength(of: sTexts, with: cellsConfig.subtitlesFontSize))
-                    if cellsConfig.contentType == .iconText || cellsConfig.contentType == .textIcon {
-                        contentSize.width += 33
-                    }
-                }
-                switch referenceLocation {
-                case .left: contentSize.width = min(refRect.minX - 32, contentSize.width)
-                case .right: contentSize.width = min(screenWidth - refRect.maxX - 32, contentSize.width)
-                default: contentSize.width = min(screenWidth - 32, contentSize.width)
-                }
+
+            /// Get the icon's width
+            if (rowStyle == .value1) || (rowStyle == .value2) {
+                totalWidth += 30
             }
+            
+            /// Get spacing with texts or text-icon
+            if (rowStyle != .`default`) && (rowStyle != .subtitle2) {
+                totalWidth += 15
+            }
+            contentSize.width = totalWidth
         }
         
         /// Height
         if contentSize.height == 0 {
-            contentSize.height = cellsConfig.height * CGFloat(contents?.count ?? 0)
+            let count = texts.0?.count ?? 0
+            for i in 0..<count {
+                let height = invoke("tablePopover(_:heightOfRowAt:)", param: i, dValue: CGFloat(50))
+                contentSize.height += height
+            }
         }
         return contentSize
+    }
+
+    /// Get texts from contents
+    /// The first is title | text
+    /// The second is subtitle | text
+    func getTexts() -> ([String]?, [String]?) {
+
+        if let contents = contents as? [String] {
+            return (contents, nil)
+        }
+
+        guard let contents = contents as? [[String: Any]] else { return (nil, nil) }
+        switch rowStyle! {
+        case .value1:
+            if let keys = extendKeys, keys.count >= 2 {
+                return (contents.compactMap({ $0[keys[1]] as? String }), nil)
+            }
+        case .`default`, .value2:
+            if let keys = extendKeys, keys.count >= 1 {
+                return (contents.compactMap({ $0[keys[0]] as? String }), nil)
+            }
+        default:
+            if let keys = extendKeys, keys.count >= 2 {
+                return (contents.compactMap({ $0[keys[0]] as? String }),
+                        contents.compactMap({ $0[keys[1]] as? String }))
+            }
+        }
+        return (nil, nil)
     }
 
     /// Get the max lenght of texts
     func maxLength(of texts: [String], with fontSize: CGFloat) -> CGFloat {
         var maxLength: CGFloat = 0
-        for text in texts {
-            let textWidth = text.boundingWidth(with: cellsConfig.height, fontSize: fontSize)
+        for i in 0..<texts.count {
+            let height = invoke("tablePopover(_:heightOfRowAt:)", param: i, dValue: CGFloat(50))
+            let textWidth = texts[i].boundingWidth(with: height, fontSize: fontSize)
             if textWidth > maxLength {
                 maxLength = textWidth
             }
         }
         return maxLength
+    }
+
+    /// Invoke methods by delegate
+    @discardableResult
+    func invoke<T>(_ method: String, param: Int, dValue: T) -> T {
+        unowned let weakSelf = self
+        let dl = delegate as? IDOTablePopoverDelegate
+        if method.contains("heightOfRowAt") {
+            return dl?.tablePopover?(weakSelf, heightOfRowAt: param) as? T ?? dValue
+        }
+        if method.contains("disabledRowAt") {
+            return dl?.tablePopover?(weakSelf, disabledRowAt: param) as? T ?? dValue
+        }
+        if method.contains("didSelectedRowAt") {
+            dl?.tablePopover?(weakSelf, didSelectRowAt: param)
+            return dValue
+        }
+        return dValue
     }
 }
 
@@ -208,28 +307,59 @@ extension IDOTablePopover: UITableViewDataSource, UITableViewDelegate {
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         var cell = tableView.dequeueReusableCell(withIdentifier: "kIDOTablePopoverCell") as? IDOTablePopoverCell
         if cell == nil {
-            cell = IDOTablePopoverCell(configuration: cellsConfig)
+            cell = IDOTablePopoverCell(rowStyle: rowStyle)
         }
-        if let content = contents?[indexPath.row] {
-            cell?.applyValues(content, with: extendKeys)
-        }
-        unowned let weakSelf = self
-        if let isDisabled = (delegate as? IDOTablePopoverDelegate)?.canSelect?(weakSelf, at: indexPath.row) {
-            cell?.setDisabled(with: isDisabled)
-        }
+
+        /// Set constraints
+        cell?.setConstraints()
+
+        /// Apply values
+        cell?.setValues(contents![indexPath.row], with: extendKeys)
+
+        /// Whether it disabled
+        let isDisabled = invoke("tablePopover(_:disabledRowAt:)",
+                                param: indexPath.row,
+                                dValue: false)
+        cell?.setDisabled(isDisabled, value: contents![indexPath.row] as? [String: Any])
+
+        /// Whether it selected
+        cell?.setSelected(selectedIndexes.contains(indexPath.row))
         return cell!
     }
 
     /// The row's height
     public func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return cellsConfig.height
+        return invoke("tablePopover(_:heightOfRowAt:)", param: indexPath.row, dValue: CGFloat(50))
     }
 
     /// Selected rows
     public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if let cell = tableView.cellForRow(at: indexPath) as? IDOTablePopoverCell {
-            cell.setSelected(!cell.isSelected)
-            cell.isSelected = !cell.isSelected
+        /// Invoke closure when rows updated
+        defer {
+            if let handle = _selectedHandler {
+                unowned let weakSelf = self
+                handle(weakSelf, selectedIndexes)
+            } else {
+                invoke("tablePopover(_:didSelectRowAt:)", param: indexPath.row, dValue: NSNull())
+            }
+        }
+
+        /// Process selected rows
+        if !isMultipleSelect {
+            selectedIndexes.removeAll()
+        }
+        if selectedIndexes.contains(indexPath.row) {
+            selectedIndexes.removeAll(where: { $0 == indexPath.row })
+        } else {
+            selectedIndexes.append(indexPath.row)
+        }
+        selectedIndexes = selectedIndexes.sorted()
+
+        /// Update UI
+        if !isMultipleSelect {
+            dismiss()
+        } else {
+            tableView.reloadData()
         }
     }
 }
@@ -237,228 +367,122 @@ extension IDOTablePopover: UITableViewDataSource, UITableViewDelegate {
 //MARK: - The TableCell
 class IDOTablePopoverCell: UITableViewCell {
 
-    /// The title label
-    var titleLabel = UILabel()
-
-    /// The subtitle label
-    lazy var subtitleLabel = UILabel()
-
-    /// The icon image
-    lazy var iconImage = UIImageView()
-
     /// The original image
     var originalImage: UIImage?
 
-    /// The config
-    private var config: IDOTablePopoverCellsConfiguration!
-
-    /// The disalbed layer
-    private var disabledView = UIView()
+    /// The row's style
+    private var rowStyle: IDOTablePopover.RowStyle
 
     /// Init
-    init(configuration: IDOTablePopoverCellsConfiguration) {
-        super.init(style: .default, reuseIdentifier: "kIDOTablePopoverCell")
-        self.config = configuration
-
-        /// Title
-        titleLabel.font = UIFont.systemFont(ofSize: configuration.titlesFontSize)
-        titleLabel.textColor = configuration.textColor
-        addSubview(titleLabel)
-
-        /// Layout
-        switch configuration.contentType {
-        case .pureText:
-            titleLabel.top(to: self)
-            titleLabel.leading(to: self)
-            titleLabel.bottom(to: self)
-            titleLabel.trailing(to: self, constant: configuration.shouldAddedIndicator ? -33 : 0)
-            if configuration.shouldAddedIndicator {
-                iconImage.image = IDOSource.getIcon(.check)?.render(with: configuration.selectedTextColor)
-                iconImage.contentMode = .scaleAspectFit
-                iconImage.isHidden = !isSelected
-                addSubview(iconImage)
-                iconImage.centerY(to: self)
-                iconImage.width(constant: 25)
-                iconImage.height(constant: 25)
-                iconImage.trailing(to: self)
-            }
-        case .iconText, .textIcon:
-            iconImage.contentMode = .scaleAspectFit
-            addSubview(iconImage)
-            titleLabel.top(to: self)
-            titleLabel.bottom(to: self)
-            iconImage.centerY(to: self)
-            iconImage.width(constant: 25)
-            iconImage.height(constant: 25)
-            if configuration.contentType == .iconText {
-                iconImage.leading(to: self)
-                titleLabel.textAlignment = .right
-                titleLabel.trailing(to: self)
-                titleLabel.leading(to: iconImage, constant: 8)
-            } else {
-                iconImage.trailing(to: self)
-                titleLabel.leading(to: self)
-                titleLabel.trailing(to: iconImage, constant: 8)
-            }
+    init(rowStyle: IDOTablePopover.RowStyle) {
+        self.rowStyle = rowStyle
+        switch rowStyle {
+        case .default:
+            super.init(style: .default, reuseIdentifier: "kIDOTablePopoverCell")
+            textLabel?.filled()
+        case .value1:
+            super.init(style: .default, reuseIdentifier: "kIDOTablePopoverCell")
+            imageView?.contentMode = .scaleAspectFit
+        case .value2:
+            super.init(style: .default, reuseIdentifier: "kIDOTablePopoverCell")
         case .subtitle1:
-            subtitleLabel.font = UIFont.systemFont(ofSize: configuration.subtitlesFontSize)
-            subtitleLabel.textColor = configuration.subTextColor
-            addSubview(subtitleLabel)
-            titleLabel.top(to: self)
-            titleLabel.leading(to: self)
-            titleLabel.bottom(to: self)
-            titleLabel.width(equalTo: self, multiplier: 0.66, constant: 0)
-            subtitleLabel.leading(to: titleLabel, constant: 8)
-            subtitleLabel.top(to: self)
-            subtitleLabel.bottom(to: self)
-            subtitleLabel.trailing(to: self)
+            super.init(style: .value1, reuseIdentifier: "kIDOTablePopoverCell")
         case .subtitle2:
-            subtitleLabel.font = UIFont.systemFont(ofSize: configuration.subtitlesFontSize)
-            subtitleLabel.textColor = configuration.subTextColor
-            addSubview(subtitleLabel)
-            titleLabel.leading(to: self)
-            titleLabel.trailing(to: self)
-            titleLabel.centerY(to: self, constant: -18)
-            subtitleLabel.leading(to: self)
-            subtitleLabel.trailing(to: self)
-            subtitleLabel.top(to: titleLabel, constant: 5)
+            super.init(style: .subtitle, reuseIdentifier: "kIDOTablePopoverCell")
         }
+        selectionStyle = .none
+        textLabel?.font = UIFont.systemFont(ofSize: 15)
+        detailTextLabel?.font = UIFont.systemFont(ofSize: 13)
     }
 
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
-    /// Apply value
-    func applyValues(_ content: Any, with keys: [String]?) {
-        if content is String {
-            titleLabel.text = content as? String
-        } else if let content = content as? [String: Any], let keys = keys, keys.count >= 1 {
-            switch config.contentType {
-            case .pureText:
-                titleLabel.text = content[keys[0]] as? String
-            case .iconText:
-                titleLabel.text = (keys.count >= 2) ? (content[keys[1]] as? String) : nil
-                iconImage.image = content[keys[0]] as? UIImage
-                originalImage = iconImage.image
-            case .textIcon:
-                titleLabel.text = content[keys[0]] as? String
-                iconImage.image = (keys.count >= 2) ? (content[keys[1]] as? UIImage) : nil
-                originalImage = iconImage.image
-            case .subtitle1, .subtitle2:
-                titleLabel.text = content[keys[0]] as? String
-                subtitleLabel.text = (keys.count >= 2) ? (content[keys[1]] as? String) : nil
+    /// Set constraints
+    func setConstraints() {
+        switch rowStyle {
+        case .default:
+            textLabel?.filled()
+        case .value1:
+            imageView?.leading(to: contentView)
+            imageView?.centerY(to: contentView)
+            imageView?.width(constant: 20)
+            imageView?.height(constant: 20)
+            textLabel?.leading(to: imageView!, constant: 15)
+            textLabel?.centerY(to: contentView)
+        case .value2:
+            textLabel?.leading(to: contentView)
+            textLabel?.centerY(to: contentView)
+            accessoryView = UIImageView(frame: CGRect(x: 0, y: 0, width: 20, height: 20))
+            accessoryView?.contentMode = .scaleAspectFit
+            if accessoryView?.superview == nil {
+                contentView.addSubview(accessoryView!)
             }
-            setDisabled(with: isDisabled(with: content))
+        case .subtitle1:
+            textLabel?.leading(to: contentView)
+            textLabel?.centerY(to: contentView)
+            detailTextLabel?.trailing(to: contentView)
+            detailTextLabel?.centerY(to: contentView)
+        case .subtitle2:
+            textLabel?.leading(to: contentView)
+            textLabel?.trailing(to: contentView)
+            textLabel?.centerY(to: contentView, constant: -10)
+            detailTextLabel?.leading(to: contentView)
+            detailTextLabel?.trailing(to: contentView)
+            detailTextLabel?.centerY(to: contentView, constant: 10)
         }
     }
 
-    /// Is disabled
-    func isDisabled(with content: [String: Any]) -> Bool {
-        if let isDisabled = content["isDisabled"] as? String {
-            return isDisabled == "true"
-        }
-        if let isDisabled = content["isDisabled"] as? Bool {
-            return isDisabled
-        }
-        if let isDisabled = content["disabled"] as? String {
-            return isDisabled == "true"
-        }
-        if let isDisabled = content["disabled"] as? Bool {
-            return isDisabled
-        }
-        return false
-    }
-
-    /// Set disabled
-    func setDisabled(with isDisabled: Bool) {
-        selectionStyle = isDisabled ? .none : selectionStyle
-        isUserInteractionEnabled = !isDisabled
-        if isDisabled {
-            disabledView.tag = 10001
-            disabledView.filled()
-            disabledView.backgroundColor = UIColor.black.withAlphaComponent(0.1)
-            addSubview(disabledView)
-        } else {
-            viewWithTag(10001)?.removeFromSuperview()
-        }
-    }
-
-    /// Set selected
+    /// Set selected state
     func setSelected(_ selected: Bool) {
-        titleLabel.textColor = selected ? config.selectedTextColor : config.textColor
-        switch config.contentType {
-        case .pureText:
-            if config.shouldAddedIndicator {
-                iconImage.isHidden = !selected
+        guard isUserInteractionEnabled else { return }
+        textLabel?.textColor = selected ? UIColor(hex: "#409EFF") : .black
+        detailTextLabel?.textColor = selected ? UIColor(hex: "#409EFF") : UIColor(hex: "#666666")
+    }
+
+    /// Apply values
+    func setValues(_ value: Any, with keys: [String]?) {
+        if let text = value as? String {
+            textLabel?.text = text
+        }
+        if let value = value as? [String: Any], let keys = keys {
+            switch rowStyle {
+            case .default: keys.count >= 1 ? (textLabel?.text = value[keys[0]] as? String) : nil
+            case .value1, .value2:
+                if keys.count >= 2 {
+                    let iconKeyIndex = rowStyle == .value1 ? 0 : 1
+                    let titleKeyIndex = rowStyle == .value1 ? 1 : 0
+                    let imgView = (rowStyle == .value1) ? imageView : (accessoryView as? UIImageView)
+                    if let image = value[keys[iconKeyIndex]] as? UIImage {
+                        originalImage = image
+                        imgView?.image = image
+                    }
+                    if let imageName = value[keys[iconKeyIndex]] as? String {
+                        imgView?.image = UIImage(named: imageName)
+                        originalImage = imgView?.image
+                    }
+                    textLabel?.text = value[keys[titleKeyIndex]] as? String
+                }
+            default:
+                if keys.count >= 2 {
+                    textLabel?.text = value[keys[0]] as? String
+                    detailTextLabel?.text = value[keys[1]] as? String
+                }
             }
-        case .iconText, .textIcon:
-            iconImage.isHidden = !selected
-            if selected {
-                iconImage.image = originalImage?.render(with: config.selectedTextColor)
-            } else {
-                iconImage.image = originalImage
-            }
-        case .subtitle1, .subtitle2:
-            subtitleLabel.textColor = selected ? config.selectedTextColor : config.textColor
         }
     }
-}
 
-//MARK: - The contents layout
-public struct IDOTablePopoverCellsConfiguration {
-    public enum ContentType {
-        /// Only text
-        case pureText
-        /// Icon - text
-        case iconText
-        /// Text - icon
-        case textIcon
-        /// Left - title, right - subtitle
-        case subtitle1
-        /// Top - title, bottom - subtitle
-        case subtitle2
-    }
-
-    /// Layout type
-    public var contentType: ContentType
-
-    /// The row's height
-    public var height: CGFloat
-
-    /// Separator insets
-    public var separatorInsets: UIEdgeInsets
-
-    /// Separator color
-    /// If nil, none separator
-    public var separatorColor: UIColor?
-
-    /// The fontSize, default is 15
-    public var titlesFontSize: CGFloat
-    public var subtitlesFontSize: CGFloat
-
-    /// The text's color for normal
-    public var textColor: UIColor
-    public var subTextColor: UIColor?
-
-    /// The text's color for selected
-    public var selectedTextColor: UIColor
-
-    /// Should add an indicator when selected rows,
-    /// Note that it only suitable for ContentType = .pureText
-    public var shouldAddedIndicator: Bool
-
-    /// Init
-    public init(height: CGFloat = 45, contentType: ContentType = .pureText, separatorInsets: UIEdgeInsets = UIEdgeInsets.zero, separatorColor: UIColor? = nil, titlesFontSize: CGFloat = 15, subtitlesFontSize: CGFloat = 13, textColor: UIColor = UIColor.rgb(54, 55, 56), subTextColor: UIColor? = nil, selectedTextColor: UIColor = UIColor.rgb(56, 128, 255), shouldAddedIndicator: Bool = true) {
-        self.height = height
-        self.contentType = contentType
-        self.separatorInsets = separatorInsets
-        self.separatorColor = separatorColor
-        self.titlesFontSize = titlesFontSize
-        self.subtitlesFontSize = subtitlesFontSize
-        self.textColor = textColor
-        self.subTextColor = subTextColor
-        self.selectedTextColor = selectedTextColor
-        self.shouldAddedIndicator = shouldAddedIndicator
+    /// Set disabled state
+    func setDisabled(_ disabled: Bool, value: [String: Any]?) {
+        var isDisabled = disabled
+        if !isDisabled, let value = value {
+            isDisabled = (value["isDisabled"] as? Bool ?? false) || (value["disabled"] as? Bool ?? false)
+        }
+        isUserInteractionEnabled = !isDisabled
+        if !isUserInteractionEnabled {
+            textLabel?.textColor = UIColor(hex: "#DDDDDD")
+            detailTextLabel?.textColor = UIColor(hex: "#EEEEEE")
+        }
     }
 }
