@@ -9,31 +9,63 @@
 import UIKit
 
 //MARK: - Camera & Album
-extension Do where Element: UIViewController {
+public typealias IDOMediaImageDelegate = (UIImagePickerControllerDelegate & UINavigationControllerDelegate)
+public extension UIViewController {
     /// Open camera
-    public func openCamera(with delegate: IDOMediaImageDelegate?) {
-        self.el.openCamera(with: delegate)
+    func openCamera(with delegate: IDOMediaImageDelegate?) {
+        if UIImagePickerController.isSourceTypeAvailable(.camera) {
+            let imagePicker = UIImagePickerController()
+            imagePicker.allowsEditing = true
+            imagePicker.delegate = delegate
+            imagePicker.sourceType = .camera
+            present(imagePicker, animated: true, completion: nil)
+        } else {
+            print("The camera isn't availabel, please check settings.")
+        }
     }
     
     /// Open album
-    public func openAlbum(with delegate: IDOMediaImageDelegate?) {
-        self.el.openAlbum(with: delegate)
+    func openAlbum(with delegate: IDOMediaImageDelegate?) {
+        if UIImagePickerController.isSourceTypeAvailable(.photoLibrary) {
+            let imagePicker = UIImagePickerController()
+            imagePicker.allowsEditing = true
+            imagePicker.delegate = delegate
+            imagePicker.sourceType = .photoLibrary
+            present(imagePicker, animated: true, completion: nil)
+        } else {
+            print("The photo library isn't availabel, please check settings.")
+        }
     }
 }
 
 //MARK: - Alert
-extension Do where Element: UIViewController {
+public typealias IDOAlertActionHandler = ((UIAlertAction) -> Void)
+public extension UIViewController {
     /// Alert
     ///
     /// @title: The title
     /// @message: The message
     /// @options: The titles for other actions but exclude 'Cancel'
-    public func alert(with title: String? = nil,
-                      message: String?,
-                      options: [String]? = nil,
-                      handleAction: IDOAlertActionHandler? = nil)
+    func alert(with title: String? = nil,
+               message: String?,
+               options: [String]? = nil,
+               handleAction: IDOAlertActionHandler? = nil)
     {
-        self.el.alert(with: title, message: message, options: options, handleAction: handleAction)
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+
+        /// Cancel
+        let cancel = UIAlertAction(title: "取消", style: .cancel, handler: handleAction)
+        alertController.addAction(cancel)
+
+        /// Other options
+        if let options = options {
+            for option in options {
+                let action = UIAlertAction(title: option, style: .default, handler: handleAction)
+                alertController.addAction(action)
+            }
+        }
+
+        present(alertController, animated: true, completion: nil)
     }
 
     /// Action Sheet
@@ -41,11 +73,25 @@ extension Do where Element: UIViewController {
     /// @title: The title
     /// @message: The message
     /// @options: The titles for other actions but exclude 'Cancel'
-    public func actionSheet(with title: String? = nil,
-                            message: String? = nil,
-                            options: [String]? = nil,
-                            handleAction: IDOAlertActionHandler? = nil)
+    func actionSheet(with title: String? = nil,
+                     message: String? = nil,
+                     options: [String]? = nil,
+                     handleAction: IDOAlertActionHandler? = nil)
     {
-        self.el.actionSheet(with: title, message: message, options: options, handleAction: handleAction)
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .actionSheet)
+
+        /// Cancel
+        let cancel = UIAlertAction(title: "取消", style: .cancel, handler: handleAction)
+        alertController.addAction(cancel)
+        
+        /// Other options
+        if let options = options {
+            for option in options {
+                let action = UIAlertAction(title: option, style: .default, handler: handleAction)
+                alertController.addAction(action)
+            }
+        }
+
+        present(alertController, animated: true, completion: nil)
     }
 }

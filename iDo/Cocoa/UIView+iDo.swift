@@ -150,31 +150,31 @@ public extension UIView {
 }
 
 //MARK: - Camera & Album
-extension Do where Element: UIView {
+public extension UIView {
     /// Open camera
-    public func openCamera(with delegate: IDOMediaImageDelegate?) {
-        self.el.openCamera(with: delegate)
+    func openCamera(with delegate: IDOMediaImageDelegate?) {
+        controller?.openCamera(with: delegate)
     }
     
     /// Open album
-    public func openAlbum(with delegate: IDOMediaImageDelegate?) {
-        self.el.openAlbum(with: delegate)
+    func openAlbum(with delegate: IDOMediaImageDelegate?) {
+        controller?.openAlbum(with: delegate)
     }
 }
 
 //MARK: - Alert
-extension Do where Element: UIView {
+public extension UIView {
     /// Alert
     ///
     /// @title: The title
     /// @message: The message
     /// @options: The titles for other actions but exclude 'Cancel'
-    public func alert(with title: String? = nil,
-                      message: String?,
-                      options: [String]? = nil,
-                      handleAction: IDOAlertActionHandler? = nil)
+    func alert(with title: String? = nil,
+               message: String?,
+               options: [String]? = nil,
+               handleAction: IDOAlertActionHandler? = nil)
     {
-        self.el.alert(with: title, message: message, options: options, handleAction: handleAction)
+        controller?.alert(with: title, message: message, options: options, handleAction: handleAction)
     }
     
     /// Action Sheet
@@ -182,11 +182,11 @@ extension Do where Element: UIView {
     /// @title: The title
     /// @message: The message
     /// @options: The titles for other actions but exclude 'Cancel'
-    public func actionSheet(with title: String? = nil,
-                            message: String? = nil,
-                            options: [String]? = nil,
-                            handleAction: IDOAlertActionHandler? = nil)
+    func actionSheet(with title: String? = nil,
+                     message: String? = nil,
+                     options: [String]? = nil,
+                     handleAction: IDOAlertActionHandler? = nil)
     {
-        self.el.actionSheet(with: title, message: message, options: options, handleAction: handleAction)
+        controller?.actionSheet(with: title, message: message, options: options, handleAction: handleAction)
     }
 }
