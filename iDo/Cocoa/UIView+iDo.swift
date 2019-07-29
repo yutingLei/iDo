@@ -9,9 +9,9 @@
 import UIKit
 
 
-//MARK: - Properties
+//MARK: - Convenience Properties
 public extension UIView {
-    
+
     /// Get controller
     var controller: UIViewController? {
         get {
@@ -25,7 +25,7 @@ public extension UIView {
         }
     }
 
-    /// A convenience property to set corner radius
+    /// Set corner radius
     var cornerRadius: CGFloat {
         get { return layer.cornerRadius }
         set {
@@ -33,30 +33,48 @@ public extension UIView {
             layer.masksToBounds = newValue > 0
         }
     }
+
+    /// Set border color
+    var borderColor: UIColor? {
+        get { return layer.borderColor == nil ? nil : UIColor(cgColor: layer.borderColor!) }
+        set {
+            layer.borderColor = newValue?.cgColor
+            layer.borderWidth = newValue == nil ? 0 : 1
+        }
+    }
 }
 
 //MARK: - Constraints
 public extension UIView {
 
-    /// Filled to superview with constants
-    ///
-    /// @constants: The values of top/leading/bottom/trailing constant
-    func filled(with constants: CGFloat...) {
-        if superview == nil {
-            print("The current view must be added to a view before constrained.")
-            return
-        }
-        top(to: superview!, constant: constants.count >= 1 ? constants[0] : 0)
-        leading(to: superview!, constant: constants.count >= 2 ? constants[1] : 0)
-        trailing(to: superview!, constant:  constants.count >= 3 ? constants[2] : 0)
-        bottom(to: superview!, constant:  constants.count >= 4 ? constants[3] : 0)
+    /// Filled self to it's superview
+    func filled() {
+        assert(superview != nil, "It doesn't added to a view.")
+        top(to: superview!)
+        leading(to: superview!)
+        trailing(to: superview!)
+        bottom(to: superview!)
     }
 
-    /// 顶部约束
+    /// Filled self to it's superview with some conditions
+    /// top: distance to top
+    /// leading: distance to left.
+    /// trailing: distance to right
+    /// bottom: distance to bottom
+    func filled(but topD: CGFloat = 0, leadingD: CGFloat = 0, trailingD: CGFloat = 0, bottomD: CGFloat = 0) {
+        assert(superview != nil, "It doesn't added to a view.")
+        top(to: superview!, constant: topD)
+        leading(to: superview!, constant: leadingD)
+        trailing(to: superview!, constant: -trailingD)
+        bottom(to: superview!, constant: -bottomD)
+    }
+
+    /// Top constraint
     ///
-    /// @aView: 顶部约束参考视图, 若为superview则top相对top做约束，否则是相对bottom做约束
-    /// @constant: 约束值，默认0
+    /// @aView: A reference view used to constraint
+    /// @constant: The value of constraint, default is 0
     func top(to aView: UIView, constant: CGFloat = 0) {
+        assert(superview != nil, "It doesn't added to a view.")
         translatesAutoresizingMaskIntoConstraints = false
         if aView == superview {
             topAnchor.constraint(equalTo: aView.topAnchor, constant: constant).isActive = true
@@ -65,11 +83,12 @@ public extension UIView {
         }
     }
 
-    /// 左边/头部约束
+    /// Leading/Left constraint
     ///
-    /// @aView: 约束参考视图, 若为superview则leading相对leading做约束，否则是相对trailing做约束
-    /// @constant: 约束值，默认0
+    /// @aView: A reference view that use to constraint
+    /// @constant: The value of constraint, default is 0
     func leading(to aView: UIView, constant: CGFloat = 0) {
+        assert(superview != nil, "It doesn't added to a view.")
         translatesAutoresizingMaskIntoConstraints = false
         if aView == superview {
             leadingAnchor.constraint(equalTo: aView.leadingAnchor, constant: constant).isActive = true
@@ -78,11 +97,12 @@ public extension UIView {
         }
     }
 
-    /// 底部约束
+    /// Bottom constraint
     ///
-    /// @aView: 约束参考视图, 若为superview则bottom相对bottom做约束，否则是相对top做约束
-    /// @constant: 约束值，默认0
+    /// @aView: A reference view that use to constraint
+    /// @constant: The value of constraint, default is 0
     func bottom(to aView: UIView, constant: CGFloat = 0) {
+        assert(superview != nil, "It doesn't added to a view.")
         translatesAutoresizingMaskIntoConstraints = false
         if aView == superview {
             bottomAnchor.constraint(equalTo: aView.bottomAnchor, constant: constant).isActive = true
@@ -91,11 +111,12 @@ public extension UIView {
         }
     }
 
-    /// 右边/尾部约束
+    /// Trailing/Right constraint
     ///
-    /// @aView: 约束参考视图, 若为superview则trailing相对trailing做约束，否则是相对leading做约束
-    /// @constant: 约束值，默认0
+    /// @aView: A reference view that use to constraint
+    /// @constant: The value of constraint, default is 0
     func trailing(to aView: UIView, constant: CGFloat = 0) {
+        assert(superview != nil, "It doesn't added to a view.")
         translatesAutoresizingMaskIntoConstraints = false
         if aView == superview {
             trailingAnchor.constraint(equalTo: aView.trailingAnchor, constant: constant).isActive = true
@@ -104,11 +125,12 @@ public extension UIView {
         }
     }
 
-    /// 宽度约束
+    /// Width constraint
     ///
-    /// @aView: 宽度与该视图一直
-    /// @constant: 宽度约束, 默认0
+    /// @aView: A reference view that use to constraint, default is nil.
+    /// @constant: The value of constraint, default is 0.
     func width(equalTo aView: UIView? = nil, multiplier: CGFloat = 1, constant: CGFloat) {
+        assert(superview != nil, "It doesn't added to a view.")
         translatesAutoresizingMaskIntoConstraints = false
         if let aView = aView {
             widthAnchor.constraint(equalTo: aView.widthAnchor, multiplier: multiplier, constant: constant).isActive = true
@@ -117,11 +139,12 @@ public extension UIView {
         }
     }
 
-    /// 高度约束
+    /// Height constraint
     ///
-    /// @aView: 高度与该视图一直
-    /// @constant: 宽度约束, 默认0
+    /// @aView: A reference view that use to constraint, default is nil.
+    /// @constant: The value of constraint, default is 0.
     func height(equalTo aView: UIView? = nil, multiplier: CGFloat = 1, constant: CGFloat) {
+        assert(superview != nil, "It doesn't added to a view.")
         translatesAutoresizingMaskIntoConstraints = false
         if let aView = aView {
             heightAnchor.constraint(equalTo: aView.heightAnchor, multiplier: multiplier, constant: constant).isActive = true
@@ -130,20 +153,22 @@ public extension UIView {
         }
     }
 
-    /// 横向居中
+    /// Centered axis of X.
     ///
-    /// @aView: 参考视图
-    /// @constant: 约束值，默认0
+    /// @aView: A reference view that use to constraint, default is nil.
+    /// @constant: The value of constraint, default is 0.
     func centerX(to aView: UIView, constant: CGFloat = 0) {
+        assert(superview != nil, "It doesn't added to a view.")
         translatesAutoresizingMaskIntoConstraints = false
         centerXAnchor.constraint(equalTo: aView.centerXAnchor, constant: constant).isActive = true
     }
 
-    /// 纵向居中
+    /// Centered axis of Y
     ///
-    /// @aView: 参考视图
-    /// @constant: 约束值，默认0
+    /// @aView: A reference view that use to constraint, default is nil.
+    /// @constant: The value of constraint, default is 0.
     func centerY(to aView: UIView, constant: CGFloat = 0) {
+        assert(superview != nil, "It doesn't added to a view.")
         translatesAutoresizingMaskIntoConstraints = false
         centerYAnchor.constraint(equalTo: aView.centerYAnchor, constant: constant).isActive = true
     }
