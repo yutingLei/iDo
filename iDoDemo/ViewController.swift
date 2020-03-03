@@ -10,27 +10,28 @@ import UIKit
 import iDo
 
 class ViewController: UIViewController {
+    
+    @IBOutlet weak var testView: UIView!
 
-    var tablePopover: IDOTablePopover?
-
+    private var browser: DOImageLoop!
+    private var classicLoading = DOLoading()
+//    private var systemLoading = DOLoading(mode: .system)
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
 
-        
+        classicLoading.show(in: testView)
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+//        DispatchQueue.main.asyncAfter(deadline: .now() + 10) {
+//            self.classicLoading.hide()
+//            self.systemLoading.show(in: self.view)
+//        }
     }
 
     @IBAction func onTouched(_ sender: UIButton) {
-        if tablePopover == nil {
-            tablePopover = IDOTablePopover(referenceView: sender, rowStyle: .value1)
-            tablePopover?.extendKeys = ["subtitle", "title"]
-            tablePopover?.isMultipleSelect = true
-        }
-        tablePopover?.show()
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + 5) {[unowned self] in
-            self.tablePopover?.contents = []
-            self.tablePopover?.show()
-        }
     }
 }

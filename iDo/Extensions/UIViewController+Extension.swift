@@ -1,22 +1,26 @@
-//
-//  UIViewController+iDo.swift
-//  Extend some functions or others for class UIViewController
-//
-//  Created by admin on 2019/6/6.
-//  Copyright © 2019 Conjur. All rights reserved.
-//
+/**************************************************
+*
+* UIViewController+Extension
+*
+* Extend properties and methods.
+*
+* Copyright © 2020 Leiyt. All rights reserved.
+**************************************************/
 
 import UIKit
 
 //MARK: - Camera & Album
 public typealias IDOMediaImageDelegate = (UIImagePickerControllerDelegate & UINavigationControllerDelegate)
 public extension UIViewController {
-    /// Open camera
-    func openCamera(with delegate: IDOMediaImageDelegate?) {
+
+    /// A convenience method to open camera.
+    ///
+    /// target: The object whose imp IDOMediaImageDelegate
+    func openCamera(in target: IDOMediaImageDelegate?) {
         if UIImagePickerController.isSourceTypeAvailable(.camera) {
             let imagePicker = UIImagePickerController()
             imagePicker.allowsEditing = true
-            imagePicker.delegate = delegate
+            imagePicker.delegate = target
             imagePicker.sourceType = .camera
             present(imagePicker, animated: true, completion: nil)
         } else {
@@ -24,12 +28,14 @@ public extension UIViewController {
         }
     }
     
-    /// Open album
-    func openAlbum(with delegate: IDOMediaImageDelegate?) {
+    /// A convenience method to open album.
+    ///
+    /// target: The object whose imp IDOMediaImageDelegate
+    func openAlbum(in target: IDOMediaImageDelegate?) {
         if UIImagePickerController.isSourceTypeAvailable(.photoLibrary) {
             let imagePicker = UIImagePickerController()
             imagePicker.allowsEditing = true
-            imagePicker.delegate = delegate
+            imagePicker.delegate = target
             imagePicker.sourceType = .photoLibrary
             present(imagePicker, animated: true, completion: nil)
         } else {
@@ -43,9 +49,9 @@ public typealias IDOAlertActionHandler = ((UIAlertAction) -> Void)
 public extension UIViewController {
     /// Alert
     ///
-    /// @title: The title
-    /// @message: The message
-    /// @options: The titles for other actions but exclude 'Cancel'
+    /// title: The title
+    /// message: The message
+    /// options: The titles for other actions but except 'Cancel'
     func alert(with title: String? = nil,
                message: String?,
                options: [String]? = nil,
@@ -70,9 +76,9 @@ public extension UIViewController {
 
     /// Action Sheet
     ///
-    /// @title: The title
-    /// @message: The message
-    /// @options: The titles for other actions but exclude 'Cancel'
+    /// title: The title
+    /// message: The message
+    /// options: The titles for other actions but except 'Cancel'
     func actionSheet(with title: String? = nil,
                      message: String? = nil,
                      options: [String]? = nil,

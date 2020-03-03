@@ -7,38 +7,59 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		8401730222AF4D7600C8D9A3 /* String+iDo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8401730122AF4D7600C8D9A3 /* String+iDo.swift */; };
-		8401730622AF5A2100C8D9A3 /* Toast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8401730522AF5A2100C8D9A3 /* Toast.swift */; };
-		8401730A22AF7FB900C8D9A3 /* UIColor+iDo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8401730922AF7FB900C8D9A3 /* UIColor+iDo.swift */; };
-		8401730C22AF85A900C8D9A3 /* IDODatePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8401730B22AF85A900C8D9A3 /* IDODatePicker.swift */; };
+		8401730A22AF7FB900C8D9A3 /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8401730922AF7FB900C8D9A3 /* UIColor+Extension.swift */; };
 		8401731422AF92AD00C8D9A3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8401731322AF92AD00C8D9A3 /* AppDelegate.swift */; };
 		8401731622AF92AD00C8D9A3 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8401731522AF92AD00C8D9A3 /* ViewController.swift */; };
 		8401731922AF92AD00C8D9A3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8401731722AF92AD00C8D9A3 /* Main.storyboard */; };
 		8401731B22AF92AE00C8D9A3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8401731A22AF92AE00C8D9A3 /* Assets.xcassets */; };
 		8401731E22AF92AE00C8D9A3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8401731C22AF92AE00C8D9A3 /* LaunchScreen.storyboard */; };
 		8401732422AF92C300C8D9A3 /* iDo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 840343F522A904190083CA01 /* iDo.framework */; };
-		8401732722AF9F9C00C8D9A3 /* IDODateRangePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8401732622AF9F9C00C8D9A3 /* IDODateRangePicker.swift */; };
-		8402EC1D22B1F149006B03BD /* IDODatePickerControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8402EC1C22B1F149006B03BD /* IDODatePickerControl.swift */; };
-		8402EC2022B21A7F006B03BD /* IDOPopover.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8402EC1F22B21A7F006B03BD /* IDOPopover.swift */; };
-		8402EC2222B22D12006B03BD /* CGs+iDo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8402EC2122B22D12006B03BD /* CGs+iDo.swift */; };
+		8402EC2222B22D12006B03BD /* CG+iDo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8402EC2122B22D12006B03BD /* CG+iDo.swift */; };
 		840343FA22A904190083CA01 /* iDo.h in Headers */ = {isa = PBXBuildFile; fileRef = 840343F822A904190083CA01 /* iDo.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		8403440122A904D70083CA01 /* UIView+iDo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8403440022A904D70083CA01 /* UIView+iDo.swift */; };
-		8403440622A915920083CA01 /* UIViewController+iDo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8403440522A915920083CA01 /* UIViewController+iDo.swift */; };
-		8403440822A9160B0083CA01 /* iDo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8403440722A9160B0083CA01 /* iDo.swift */; };
-		84083A5922CAFB7200A0B437 /* IDOShadowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84083A5822CAFB7200A0B437 /* IDOShadowView.swift */; };
-		849B584822B72451009FC132 /* IDOTablePopover.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849B584722B72451009FC132 /* IDOTablePopover.swift */; };
-		849B584A22B78947009FC132 /* UIImage+iDo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849B584922B78947009FC132 /* UIImage+iDo.swift */; };
-		84FF8F5322B3299200C29FB1 /* IDOTextPopover.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84FF8F5222B3299200C29FB1 /* IDOTextPopover.swift */; };
-		84FF8F5522B36BA200C29FB1 /* IDOImagePopover.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84FF8F5422B36BA200C29FB1 /* IDOImagePopover.swift */; };
-		84FF8F5722B3827C00C29FB1 /* IDOSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84FF8F5622B3827C00C29FB1 /* IDOSource.swift */; };
-		84FF8F5A22B382CD00C29FB1 /* IDOSource.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 84FF8F5922B382CD00C29FB1 /* IDOSource.bundle */; };
+		8403440622A915920083CA01 /* UIViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8403440522A915920083CA01 /* UIViewController+Extension.swift */; };
+		84083473240763C500578754 /* UITextField+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84083472240763C500578754 /* UITextField+Extension.swift */; };
+		84088AD0240CB22E003B22F6 /* DOImageLoop.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84088ACF240CB22E003B22F6 /* DOImageLoop.swift */; };
+		84088AD2240CB27F003B22F6 /* DOImageLoop.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84088AD1240CB27F003B22F6 /* DOImageLoop.xib */; };
+		84088AE3240CED47003B22F6 /* DOLoading.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84088AE2240CED47003B22F6 /* DOLoading.swift */; };
+		840DCE0D240E5587006681A3 /* DOPopover.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840DCE0C240E5587006681A3 /* DOPopover.swift */; };
+		84164E04240650D1007ACFDA /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84164E03240650D1007ACFDA /* UIView+Extension.swift */; };
+		84164E0624065964007ACFDA /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84164E0524065964007ACFDA /* String+Extension.swift */; };
+		849B584A22B78947009FC132 /* UIImage+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849B584922B78947009FC132 /* UIImage+Extension.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		84088ADA240CE134003B22F6 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 84088AD3240CE134003B22F6 /* SDWebImage.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 53761325155AD0D5005750A4;
+			remoteInfo = "SDWebImage static";
+		};
+		84088ADC240CE134003B22F6 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 84088AD3240CE134003B22F6 /* SDWebImage.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 4A2CADFF1AB4BB5300B6BC39;
+			remoteInfo = SDWebImage;
+		};
+		84088ADE240CE134003B22F6 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 84088AD3240CE134003B22F6 /* SDWebImage.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 80B6DFEE2142B71600BCB334;
+			remoteInfo = SDWebImageMapKit;
+		};
+		84088AE0240CE13D003B22F6 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 84088AD3240CE134003B22F6 /* SDWebImage.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 4A2CADFE1AB4BB5300B6BC39;
+			remoteInfo = SDWebImage;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
-		8401730122AF4D7600C8D9A3 /* String+iDo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+iDo.swift"; sourceTree = "<group>"; };
-		8401730522AF5A2100C8D9A3 /* Toast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Toast.swift; sourceTree = "<group>"; };
-		8401730922AF7FB900C8D9A3 /* UIColor+iDo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+iDo.swift"; sourceTree = "<group>"; };
-		8401730B22AF85A900C8D9A3 /* IDODatePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IDODatePicker.swift; sourceTree = "<group>"; };
+		8401730922AF7FB900C8D9A3 /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
 		8401731122AF92AD00C8D9A3 /* iDoDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iDoDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8401731322AF92AD00C8D9A3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8401731522AF92AD00C8D9A3 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -46,23 +67,20 @@
 		8401731A22AF92AE00C8D9A3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8401731D22AF92AE00C8D9A3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		8401731F22AF92AE00C8D9A3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		8401732622AF9F9C00C8D9A3 /* IDODateRangePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IDODateRangePicker.swift; sourceTree = "<group>"; };
-		8402EC1C22B1F149006B03BD /* IDODatePickerControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IDODatePickerControl.swift; sourceTree = "<group>"; };
-		8402EC1F22B21A7F006B03BD /* IDOPopover.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IDOPopover.swift; sourceTree = "<group>"; };
-		8402EC2122B22D12006B03BD /* CGs+iDo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGs+iDo.swift"; sourceTree = "<group>"; };
+		8402EC2122B22D12006B03BD /* CG+iDo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CG+iDo.swift"; sourceTree = "<group>"; };
 		840343F522A904190083CA01 /* iDo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = iDo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		840343F822A904190083CA01 /* iDo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = iDo.h; sourceTree = "<group>"; };
 		840343F922A904190083CA01 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		8403440022A904D70083CA01 /* UIView+iDo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+iDo.swift"; sourceTree = "<group>"; };
-		8403440522A915920083CA01 /* UIViewController+iDo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+iDo.swift"; sourceTree = "<group>"; };
-		8403440722A9160B0083CA01 /* iDo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iDo.swift; sourceTree = "<group>"; };
-		84083A5822CAFB7200A0B437 /* IDOShadowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IDOShadowView.swift; sourceTree = "<group>"; };
-		849B584722B72451009FC132 /* IDOTablePopover.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IDOTablePopover.swift; sourceTree = "<group>"; };
-		849B584922B78947009FC132 /* UIImage+iDo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+iDo.swift"; sourceTree = "<group>"; };
-		84FF8F5222B3299200C29FB1 /* IDOTextPopover.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IDOTextPopover.swift; sourceTree = "<group>"; };
-		84FF8F5422B36BA200C29FB1 /* IDOImagePopover.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IDOImagePopover.swift; sourceTree = "<group>"; };
-		84FF8F5622B3827C00C29FB1 /* IDOSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IDOSource.swift; sourceTree = "<group>"; };
-		84FF8F5922B382CD00C29FB1 /* IDOSource.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = IDOSource.bundle; sourceTree = "<group>"; };
+		8403440522A915920083CA01 /* UIViewController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extension.swift"; sourceTree = "<group>"; };
+		84083472240763C500578754 /* UITextField+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+Extension.swift"; sourceTree = "<group>"; };
+		84088ACF240CB22E003B22F6 /* DOImageLoop.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DOImageLoop.swift; sourceTree = "<group>"; };
+		84088AD1240CB27F003B22F6 /* DOImageLoop.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DOImageLoop.xib; sourceTree = "<group>"; };
+		84088AD3240CE134003B22F6 /* SDWebImage.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SDWebImage.xcodeproj; path = SDWebImage/SDWebImage.xcodeproj; sourceTree = "<group>"; };
+		84088AE2240CED47003B22F6 /* DOLoading.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DOLoading.swift; sourceTree = "<group>"; };
+		840DCE0C240E5587006681A3 /* DOPopover.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DOPopover.swift; sourceTree = "<group>"; };
+		84164E03240650D1007ACFDA /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
+		84164E0524065964007ACFDA /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
+		849B584922B78947009FC132 /* UIImage+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Extension.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -84,18 +102,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		8401730422AF597500C8D9A3 /* Classic */ = {
-			isa = PBXGroup;
-			children = (
-				8401730522AF5A2100C8D9A3 /* Toast.swift */,
-				84083A5822CAFB7200A0B437 /* IDOShadowView.swift */,
-				8402EC1C22B1F149006B03BD /* IDODatePickerControl.swift */,
-				8401730B22AF85A900C8D9A3 /* IDODatePicker.swift */,
-				8401732622AF9F9C00C8D9A3 /* IDODateRangePicker.swift */,
-			);
-			path = Classic;
-			sourceTree = "<group>";
-		};
 		8401731222AF92AD00C8D9A3 /* iDoDemo */ = {
 			isa = PBXGroup;
 			children = (
@@ -116,20 +122,10 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		8402EC1E22B1FF41006B03BD /* Poper */ = {
-			isa = PBXGroup;
-			children = (
-				8402EC1F22B21A7F006B03BD /* IDOPopover.swift */,
-				84FF8F5222B3299200C29FB1 /* IDOTextPopover.swift */,
-				84FF8F5422B36BA200C29FB1 /* IDOImagePopover.swift */,
-				849B584722B72451009FC132 /* IDOTablePopover.swift */,
-			);
-			path = Poper;
-			sourceTree = "<group>";
-		};
 		840343EB22A904190083CA01 = {
 			isa = PBXGroup;
 			children = (
+				84088AD3240CE134003B22F6 /* SDWebImage.xcodeproj */,
 				840343F722A904190083CA01 /* iDo */,
 				8401731222AF92AD00C8D9A3 /* iDoDemo */,
 				840343F622A904190083CA01 /* Products */,
@@ -149,37 +145,47 @@
 		840343F722A904190083CA01 /* iDo */ = {
 			isa = PBXGroup;
 			children = (
-				84FF8F5822B3829D00C29FB1 /* Sources */,
-				8402EC1E22B1FF41006B03BD /* Poper */,
-				8401730422AF597500C8D9A3 /* Classic */,
-				8403440422A915550083CA01 /* Cocoa */,
+				84164E02240650AC007ACFDA /* Extensions */,
+				8403440422A915550083CA01 /* Components */,
 				840343F822A904190083CA01 /* iDo.h */,
-				8403440722A9160B0083CA01 /* iDo.swift */,
 				840343F922A904190083CA01 /* Info.plist */,
 			);
 			path = iDo;
 			sourceTree = "<group>";
 		};
-		8403440422A915550083CA01 /* Cocoa */ = {
+		8403440422A915550083CA01 /* Components */ = {
 			isa = PBXGroup;
 			children = (
-				8402EC2122B22D12006B03BD /* CGs+iDo.swift */,
-				8401730122AF4D7600C8D9A3 /* String+iDo.swift */,
-				8401730922AF7FB900C8D9A3 /* UIColor+iDo.swift */,
-				8403440022A904D70083CA01 /* UIView+iDo.swift */,
-				849B584922B78947009FC132 /* UIImage+iDo.swift */,
-				8403440522A915920083CA01 /* UIViewController+iDo.swift */,
+				84088ACF240CB22E003B22F6 /* DOImageLoop.swift */,
+				84088AD1240CB27F003B22F6 /* DOImageLoop.xib */,
+				84088AE2240CED47003B22F6 /* DOLoading.swift */,
+				840DCE0C240E5587006681A3 /* DOPopover.swift */,
 			);
-			path = Cocoa;
+			path = Components;
 			sourceTree = "<group>";
 		};
-		84FF8F5822B3829D00C29FB1 /* Sources */ = {
+		84088AD4240CE134003B22F6 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				84FF8F5622B3827C00C29FB1 /* IDOSource.swift */,
-				84FF8F5922B382CD00C29FB1 /* IDOSource.bundle */,
+				84088ADB240CE134003B22F6 /* libSDWebImage.a */,
+				84088ADD240CE134003B22F6 /* SDWebImage.framework */,
+				84088ADF240CE134003B22F6 /* SDWebImageMapKit.framework */,
 			);
-			path = Sources;
+			name = Products;
+			sourceTree = "<group>";
+		};
+		84164E02240650AC007ACFDA /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				8402EC2122B22D12006B03BD /* CG+iDo.swift */,
+				84164E03240650D1007ACFDA /* UIView+Extension.swift */,
+				84164E0524065964007ACFDA /* String+Extension.swift */,
+				8401730922AF7FB900C8D9A3 /* UIColor+Extension.swift */,
+				849B584922B78947009FC132 /* UIImage+Extension.swift */,
+				84083472240763C500578754 /* UITextField+Extension.swift */,
+				8403440522A915920083CA01 /* UIViewController+Extension.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -225,6 +231,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				84088AE1240CE13D003B22F6 /* PBXTargetDependency */,
 			);
 			name = iDo;
 			productName = iDo;
@@ -261,6 +268,12 @@
 			mainGroup = 840343EB22A904190083CA01;
 			productRefGroup = 840343F622A904190083CA01 /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 84088AD4240CE134003B22F6 /* Products */;
+					ProjectRef = 84088AD3240CE134003B22F6 /* SDWebImage.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				840343F422A904190083CA01 /* iDo */,
@@ -268,6 +281,30 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		84088ADB240CE134003B22F6 /* libSDWebImage.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libSDWebImage.a;
+			remoteRef = 84088ADA240CE134003B22F6 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		84088ADD240CE134003B22F6 /* SDWebImage.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = SDWebImage.framework;
+			remoteRef = 84088ADC240CE134003B22F6 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		84088ADF240CE134003B22F6 /* SDWebImageMapKit.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = SDWebImageMapKit.framework;
+			remoteRef = 84088ADE240CE134003B22F6 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		8401730F22AF92AD00C8D9A3 /* Resources */ = {
@@ -284,7 +321,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				84FF8F5A22B382CD00C29FB1 /* IDOSource.bundle in Resources */,
+				84088AD2240CB27F003B22F6 /* DOImageLoop.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -304,27 +341,28 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				849B584822B72451009FC132 /* IDOTablePopover.swift in Sources */,
-				84FF8F5522B36BA200C29FB1 /* IDOImagePopover.swift in Sources */,
-				8401730A22AF7FB900C8D9A3 /* UIColor+iDo.swift in Sources */,
-				8403440822A9160B0083CA01 /* iDo.swift in Sources */,
-				8401730222AF4D7600C8D9A3 /* String+iDo.swift in Sources */,
-				8403440622A915920083CA01 /* UIViewController+iDo.swift in Sources */,
-				8402EC1D22B1F149006B03BD /* IDODatePickerControl.swift in Sources */,
-				8402EC2222B22D12006B03BD /* CGs+iDo.swift in Sources */,
-				84FF8F5722B3827C00C29FB1 /* IDOSource.swift in Sources */,
-				8403440122A904D70083CA01 /* UIView+iDo.swift in Sources */,
-				8402EC2022B21A7F006B03BD /* IDOPopover.swift in Sources */,
-				8401732722AF9F9C00C8D9A3 /* IDODateRangePicker.swift in Sources */,
-				8401730622AF5A2100C8D9A3 /* Toast.swift in Sources */,
-				84FF8F5322B3299200C29FB1 /* IDOTextPopover.swift in Sources */,
-				849B584A22B78947009FC132 /* UIImage+iDo.swift in Sources */,
-				8401730C22AF85A900C8D9A3 /* IDODatePicker.swift in Sources */,
-				84083A5922CAFB7200A0B437 /* IDOShadowView.swift in Sources */,
+				8401730A22AF7FB900C8D9A3 /* UIColor+Extension.swift in Sources */,
+				84088AD0240CB22E003B22F6 /* DOImageLoop.swift in Sources */,
+				84088AE3240CED47003B22F6 /* DOLoading.swift in Sources */,
+				84164E0624065964007ACFDA /* String+Extension.swift in Sources */,
+				840DCE0D240E5587006681A3 /* DOPopover.swift in Sources */,
+				84083473240763C500578754 /* UITextField+Extension.swift in Sources */,
+				8403440622A915920083CA01 /* UIViewController+Extension.swift in Sources */,
+				8402EC2222B22D12006B03BD /* CG+iDo.swift in Sources */,
+				84164E04240650D1007ACFDA /* UIView+Extension.swift in Sources */,
+				849B584A22B78947009FC132 /* UIImage+Extension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		84088AE1240CE13D003B22F6 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = SDWebImage;
+			targetProxy = 84088AE0240CE13D003B22F6 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		8401731722AF92AD00C8D9A3 /* Main.storyboard */ = {

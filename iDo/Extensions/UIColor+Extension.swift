@@ -1,14 +1,22 @@
-//
-//  UIColor+iDo.swift
-//  Extend some functions and others for class UIColor
-//
-//  Created by admin on 2019/6/11.
-//  Copyright © 2019 Conjur. All rights reserved.
-//
+/**************************************************
+*
+* UIColor+Extension
+*
+* Extend properties and methods.
+*
+* Copyright © 2020 Leiyt. All rights reserved.
+**************************************************/
 
 import UIKit
 
 public extension UIColor {
+
+    /// Using one value to create color
+    ///
+    /// value: All rgb value are equels to the value.
+    class func rgb(_ value: CGFloat) -> UIColor {
+        return rgb([value, value, value])
+    }
 
     /// Using RGB literal values to init color
     class func rgb(_ values: CGFloat...) -> UIColor {

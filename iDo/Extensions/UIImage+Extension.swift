@@ -1,17 +1,19 @@
-//
-//  UIImage+iDo.swift
-//  Extend some functions or others for class UIImage
-//
-//  Created by admin on 2019/6/17.
-//  Copyright © 2019 Conjur. All rights reserved.
-//
+/**************************************************
+*
+* UIImage+Extension
+*
+* Extend properties and methods.
+*
+* Copyright © 2020 Leiyt. All rights reserved.
+**************************************************/
 
 import UIKit
 
 public extension UIImage {
 
-    /// Render image with color
-    /// If failure, return self
+    /// Render image with given color.
+    ///
+    /// color: The result image's color.
     func render(with color: UIColor) -> UIImage {
         /// Begin context
         UIGraphicsBeginImageContextWithOptions(size, false, 0)
@@ -30,8 +32,9 @@ public extension UIImage {
         return result ?? self
     }
 
-    /// Resize image with size
-    /// If failure, return self
+    /// Resize image to given size.
+    ///
+    /// newSize: After resized, the image's size.
     func resize(to newSize: CGSize) -> UIImage {
         /// Begin context
         UIGraphicsBeginImageContext(newSize)
@@ -46,9 +49,20 @@ public extension UIImage {
     }
 
     /// Scale image
-    /// If failure, return self
+    ///
+    /// scale: The zoom in/out values.
     func scale(to scales: CGFloat) -> UIImage {
         let newSize = CGSize(width: size.width * scales, height: size.height * scales)
         return resize(to: newSize)
+    }
+
+    /// Crop image with given rect.
+    ///
+    /// rect: The crop rect.
+    func crop(to rect: CGRect) -> UIImage {
+        if let cg = cgImage?.cropping(to: rect) {
+            return UIImage(cgImage: cg)
+        }
+        return self
     }
 }
