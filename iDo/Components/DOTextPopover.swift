@@ -79,7 +79,19 @@ extension DOTextPopover {
         }
         containerView.frame.size = containerSize
         contentView.frame.size = contentSize
+        if containerView.superview == nil {
+            addSubview(containerView)
+        }
+        if contentView.superview == nil {
+            containerView.addSubview(contentView)
+        }
+
         createTextView()
+        if isAttributed {
+            textView?.attributedText = attriubtedText
+        } else {
+            textView?.text = text
+        }
     }
 
     /// Create the text container view.
@@ -89,10 +101,9 @@ extension DOTextPopover {
             textView?.textContainerInset = .zero
             textView?.textContainer.lineFragmentPadding = 0
             contentView.addSubview(textView!)
+            textView?.fillToSuperview(edges: .zero)
         }
         textView?.font = font
         textView?.textColor = textColor
-        textView?.text = text
-        textView?.attributedText = attriubtedText
     }
 }

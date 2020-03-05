@@ -131,6 +131,11 @@ public extension DOPopover {
         if shouldUpdate {
             adjustmentContainerViewSize(by: direction)
         }
+
+        /// Add to key window.
+        if superview == nil {
+            UIApplication.shared.keyWindow?.addSubview(self)
+        }
     }
 
     /// Show the popover with duartion
@@ -142,6 +147,9 @@ public extension DOPopover {
 
         /// If is popped, ignore.
         guard !isPopped else { return }
+        if superview == nil {
+            UIApplication.shared.keyWindow?.addSubview(self)
+        }
     }
 
     /// Hide the popover.
@@ -202,10 +210,10 @@ extension DOPopover {
     /// Make constraints to contentView.
     func setContentViewConstraints(by direction: Direction) {
         let refRect = referView.convert(referView.bounds, to: UIApplication.shared.keyWindow)
-        contentTop = contentTop ?? topToSuperview(distance: contentMargin.top)
-        contentLeading = contentLeading ?? leadingToSuperview(distance: contentMargin.left)
-        contentTrailing = contentTrailing ?? trailingToSuperview(distance: contentMargin.right)
-        contentBottom = contentBottom ?? bottomToSuperview(distance: contentMargin.bottom)
+        contentTop = contentTop ?? contentView.topToSuperview(distance: contentMargin.top)
+        contentLeading = contentLeading ?? contentView.leadingToSuperview(distance: contentMargin.left)
+        contentTrailing = contentTrailing ?? contentView.trailingToSuperview(distance: contentMargin.right)
+        contentBottom = contentBottom ?? contentView.bottomToSuperview(distance: contentMargin.bottom)
         switch direction {
         case .left:
             contentTrailing?.constant += (useArrow ? -10 : 0)
@@ -231,10 +239,24 @@ extension DOPopover {
     /// containerView and contentView.
     func adjustmentContainerViewPosition() {
         let refRect = referView.convert(referView.bounds, to: UIApplication.shared.keyWindow)
-        var x: CGFloat = refRect.minX
-        var y: CGFloat = refRect.minY
-        var w: CGFloat = containerView.frame.width
-        var h: CGFloat = containerView.frame.height
+        let x: CGFloat
+        let y: CGFloat
+        let w = containerView.frame.width
+        let h = containerView.frame.height
+        var minX: CGFloat = gap
+        var minY: CGFloat = statusHeight + gap
+        switch direction {
+        case .left:
+            x = refRect.minX - w
+            y = max(minY, refRect.midY - h / 2)
+        case .right:
+            x = refRect.maxX
+            y = max(minY, refRect.midY - h / 2)
+        case .up:
+            break
+        default:
+            break
+        }
     }
 
     /// Start animating accroding to animate style.
