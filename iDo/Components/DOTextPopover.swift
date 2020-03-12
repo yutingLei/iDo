@@ -44,46 +44,85 @@ extension DOTextPopover {
     ///
     /// text: The given text.
     /// size: The estimate size for text.
-    func size(of text: String, estimateWidth width: CGFloat) -> CGSize {
-        let esSize = CGSize(width: width, height: CGFloat.infinity)
-        let truthSize = (text as NSString).boundingRect(with: esSize,
+    func size(of text: Any, estimateWidth width: CGFloat? = nil) -> CGSize
+    {
+        /// Get limit size.
+        let limitSize: CGSize
+        var shouldResize = true
+        if let fixedSize = fixedPopoverViewSize {
+            if fixedSize.width <= 0 && fixedSize.height > 0 {
+                shouldResize = false
+                limitSize = CGSize(width: CGFloat.infinity, height: fixedSize.height)
+            } else if fixedSize.width > 0 && fixedSize.height <= 0 {
+                shouldResize = false
+                limitSize = CGSize(width: fixedSize.width, height: CGFloat.infinity)
+            } else if fixedSize.width > 0 && fixedSize.height > 0 {
+                return fixedSize
+            } else {
+                limitSize = CGSize(width: width ?? 80, height: CGFloat.infinity)
+            }
+        } else {
+            limitSize = CGSize(width: width ?? 80, height: CGFloat.infinity)
+        }
+
+        /// Calculate size.
+        let truthSize: CGSize
+        if let text = text as? String {
+            truthSize = (text as NSString).boundingRect(with: limitSize,
                                                         options: .usesLineFragmentOrigin,
                                                         attributes: [.font: font],
                                                         context: nil).size
-        if truthSize.height > width {
-            return size(of: text, estimateWidth: width + font.pointSize * 2)
+        } else {
+            let text = text as! NSAttributedString
+            var range = NSRange(location: 0, length: text.string.count)
+            let ptr = withUnsafeMutablePointer(to: &range, { $0 })
+            let attr = text.attributes(at: 0, effectiveRange: ptr)
+            truthSize = (text.string as NSString).boundingRect(with: limitSize,
+                                                               options: .usesLineFragmentOrigin,
+                                                               attributes: attr,
+                                                               context: nil).size
+        }
+
+        /// Should resize text.
+        if shouldResize && (truthSize.height > limitSize.width) {
+            return size(of: text,
+                        estimateWidth: limitSize.width + font.pointSize * 2)
         }
         return truthSize
     }
 
     /// Generate container/content view.
     func genViews(forAttributing isAttributed: Bool) {
-        let str: String?
+        let str: Any?
         if isAttributed && attriubtedText != nil {
-            str = attriubtedText?.string
+            str = attriubtedText
         } else {
             str = text
         }
-        guard let text = str else { return }
+        guard let chars = str else { return }
 
-        let contentSize = size(of: text, estimateWidth: 80)
-        let containerSize = contentSize.extend(width: contentMargin.left + contentMargin.right,
-                                               height: contentMargin.top + contentMargin.bottom)
+        let containerSize: CGSize
+        if let _ = fixedPopoverViewSize {
+            containerSize = size(of: chars)
+        } else {
+            let esSize = size(of: chars, estimateWidth: 80)
+            containerSize = esSize.extend(width: contentMargin.left + contentMargin.right,
+                                          height: contentMargin.top + contentMargin.bottom)
+        }
 
         /// Create containerView/contentView
-        if containerView == nil {
-            containerView = DOPopoverContainer(frame: CGRect(origin: .zero, size: containerSize))
+        if shadowView == nil {
+            shadowView = DOPopoverShadow(frame: CGRect(origin: .zero, size: containerSize))
         }
         if contentView == nil {
-            contentView = DOPopoverContent(frame: CGRect(origin: .zero, size: containerSize))
+            contentView = DOPopoverContent()
         }
-        containerView.frame.size = containerSize
-        contentView.frame.size = contentSize
-        if containerView.superview == nil {
-            addSubview(containerView)
+        shadowView.frame.size = containerSize
+        if shadowView.superview == nil {
+            addSubview(shadowView)
         }
         if contentView.superview == nil {
-            containerView.addSubview(contentView)
+            shadowView.containerView.addSubview(contentView)
         }
 
         createTextView()
@@ -98,6 +137,8 @@ extension DOTextPopover {
     private func createTextView() {
         if textView == nil {
             textView = UITextView()
+            textView?.isEditable = false
+            textView?.isSelectable = false
             textView?.textContainerInset = .zero
             textView?.textContainer.lineFragmentPadding = 0
             contentView.addSubview(textView!)

@@ -16,24 +16,30 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hi6-h6-YD8">
-                                <rect key="frame" x="157" y="398" width="100" height="100"/>
-                                <color key="backgroundColor" systemColor="systemOrangeColor" red="1" green="0.58431372550000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Xc1-vS-6ZI">
+                                <rect key="frame" x="157" y="403" width="100" height="100"/>
+                                <color key="backgroundColor" red="1" green="0.40000000000000002" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="100" id="U0M-A6-QeG"/>
-                                    <constraint firstAttribute="width" constant="100" id="UqK-CA-IVN"/>
+                                    <constraint firstAttribute="height" constant="100" id="M69-UW-5l0"/>
+                                    <constraint firstAttribute="width" constant="100" id="jjD-AL-mRf"/>
                                 </constraints>
-                            </view>
+                                <state key="normal" title="Button">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="onTouched:" destination="BYZ-38-t0r" eventType="touchUpInside" id="5XX-tK-SyN"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="hi6-h6-YD8" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="2et-j0-Snd"/>
-                            <constraint firstItem="hi6-h6-YD8" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="Ty5-mp-Z2v"/>
+                            <constraint firstItem="Xc1-vS-6ZI" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="dbA-kM-uFi"/>
+                            <constraint firstItem="Xc1-vS-6ZI" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" id="pIg-mc-J84"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
-                        <outlet property="testView" destination="hi6-h6-YD8" id="Vc4-35-DZd"/>
+                        <outlet property="testView" destination="Xc1-vS-6ZI" id="6df-WL-gw6"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
