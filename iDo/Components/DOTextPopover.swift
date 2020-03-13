@@ -62,7 +62,7 @@ extension DOTextPopover {
         /// Get limit size.
         let limitSize: CGSize
         var shouldResize = true
-        if let fixedSize = fixedPopoverViewSize {
+        if let fixedSize = fixedPopoverSize {
             if fixedSize.width <= 0 && fixedSize.height > 0 {
                 shouldResize = false
                 limitSize = CGSize(width: CGFloat.infinity, height: fixedSize.height)
@@ -115,12 +115,12 @@ extension DOTextPopover {
         guard let chars = str else { return }
 
         let containerSize: CGSize
-        if let _ = fixedPopoverViewSize {
+        if let _ = fixedPopoverSize {
             containerSize = size(of: chars)
         } else {
             let esSize = size(of: chars, estimateWidth: 80)
-            containerSize = esSize.extend(width: contentMargin.left + contentMargin.right,
-                                          height: contentMargin.top + contentMargin.bottom)
+            containerSize = esSize.extend(width: contentMargin.horizontal,
+                                          height: contentMargin.vertical)
         }
 
         /// Create containerView/contentView

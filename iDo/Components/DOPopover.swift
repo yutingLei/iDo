@@ -90,7 +90,7 @@ public class DOPopover: UIView {
     public var contentMargin: UIEdgeInsets = UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8)
 
     /// Fixed the view size that display the contents.
-    public var fixedPopoverViewSize: CGSize?
+    public var fixedPopoverSize: CGSize?
 
     //MARK: Private
     /// These constraints are constraint with contentView.
@@ -147,7 +147,7 @@ public extension DOPopover {
         /// If is popped, ignore.
         guard !isPopped else { return }
         if shouldUpdate {
-            if let fixedSize = fixedPopoverViewSize {
+            if let fixedSize = fixedPopoverSize {
                 shadowView.frame.size = fixedSize
             } else {
                 adjustmentContainerViewSize(by: direction)
@@ -175,7 +175,7 @@ public extension DOPopover {
         /// If is popped, ignore.
         guard !isPopped else { return }
         if shouldUpdate {
-            if let fixedSize = fixedPopoverViewSize {
+            if let fixedSize = fixedPopoverSize {
                 shadowView.frame.size = fixedSize
             } else {
                 adjustmentContainerViewSize(by: direction)
@@ -323,7 +323,9 @@ extension DOPopover {
         /// Fade animation
         switch animateStyle {
         case .fadeInOut: fade(from: 0, to: 1)
-        case .slideInOut, .slideInFadeOut: slide(in: true)
+        case .slideInOut, .slideInFadeOut:
+            alpha = 1
+            slide(in: true)
         default:
             break
         }
@@ -369,35 +371,30 @@ extension DOPopover {
         let width = shadowView.frame.width
         var from: CGRect = shadowView.bounds
         var to: CGRect = shadowView.bounds
-        let arrow: CGFloat = useArrow ? 10 : 0
         switch direction {
         case .up:
             if isIn {
                 from = from.resize(height: -height, fixed: .bottom)
             } else {
-                to = to.resize(height: -height + arrow + contentMargin.vertical,
-                               fixed: .bottom)
+                to = to.resize(height: -height / 2, fixed: .bottom)
             }
         case .down:
             if isIn {
                 from = from.resize(height: -height, fixed: .top)
             } else {
-                to = to.resize(height: -height + arrow + contentMargin.vertical,
-                               fixed: .top)
+                to = to.resize(height: -height / 2, fixed: .top)
             }
         case .left:
             if isIn {
                 from = from.resize(width: -width, fixed: .right)
             } else {
-                to = to.resize(width: -width + arrow + contentMargin.horizontal,
-                               fixed: .right)
+                to = to.resize(width: -width / 2, fixed: .right)
             }
         default:
             if isIn {
                 from = from.resize(width: -width, fixed: .left)
             } else {
-                to = to.resize(width: -width + arrow + contentMargin.horizontal,
-                               fixed: .left)
+                to = to.resize(width: -width / 2, fixed: .left)
             }
         }
         if isIn {
@@ -408,6 +405,7 @@ extension DOPopover {
         UIView.animate(withDuration: 0.35, animations: {
             self.shadowView.animationContainerView.frame = to
             if !isIn {
+                self.alpha = 0
                 self.shadowView.animationContainerView.layoutIfNeeded()
             }
         }) { _ in

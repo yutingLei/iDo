@@ -22,10 +22,21 @@ class ViewController: UIViewController {
 
     @IBAction func onTouched(_ sender: UIButton) {
         idx = (idx + directs.count + 1) % directs.count
-        let popover = DOTextPopover(referView: testView,
+        let popover = DOListPopover(referView: testView,
                                     popDirection: directs[idx])
+        popover.rowsConfiguration.isAllowedSeparator = false
         popover.animateStyle = .slideInOut
-        popover.text = "Just test popover.Just test popover.Just test popover.Just test popover.Just test popover.Just test popover.Just test popover.Just test popover.Just test popover.Just test popover.Just test popover."
-        popover.show()
+        popover.style = .iconText
+        popover.contents = [
+            ["image": "icon-20-ipad", "name": "Test 1"],
+            ["image": "icon-20-ipad", "name": "Test 2"],
+            ["image": "icon-20-ipad", "name": "Test 3"],
+            ["image": "icon-20-ipad", "name": "Test 4"],
+        ]
+        popover.show { (result) in
+            if let res = result as? (Any, Any) {
+                print("RES: \(res)")
+            }
+        }
     }
 }
