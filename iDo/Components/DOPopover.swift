@@ -125,7 +125,10 @@ public class DOPopover: UIView {
         if let touch = touches.first {
             let loc = touch.location(in: self)
             if !shadowView.frame.contains(loc) {
-                hide()
+                guard let _ = hideHandler else {
+                    hide()
+                    return
+                }
             }
         }
     }
@@ -161,7 +164,8 @@ public extension DOPopover {
         startAnimating()
     }
 
-    /// Show the popover with duartion
+    /// Show the popover with duartion, and can't be hide in
+    /// durations
     ///
     /// duration: Continues display popover with given time.
     /// hideHandler: Handle event when popover hidden.
@@ -186,6 +190,10 @@ public extension DOPopover {
 
         /// Start animating.
         startAnimating()
+
+        DispatchQueue.main.asyncAfter(deadline: .now() + duration) {
+            self.hide()
+        }
     }
 
     /// Hide the popover.
@@ -367,36 +375,41 @@ extension DOPopover {
             if isIn {
                 from = from.resize(height: -height, fixed: .bottom)
             } else {
-                to = to.resize(height: -height + arrow + contentMargin.bottom,
+                to = to.resize(height: -height + arrow + contentMargin.vertical,
                                fixed: .bottom)
             }
         case .down:
             if isIn {
                 from = from.resize(height: -height, fixed: .top)
             } else {
-                to = to.resize(height: -height + arrow + contentMargin.top,
+                to = to.resize(height: -height + arrow + contentMargin.vertical,
                                fixed: .top)
             }
         case .left:
             if isIn {
                 from = from.resize(width: -width, fixed: .right)
             } else {
-                to = to.resize(width: -width + arrow + contentMargin.right,
+                to = to.resize(width: -width + arrow + contentMargin.horizontal,
                                fixed: .right)
             }
         default:
             if isIn {
                 from = from.resize(width: -width, fixed: .left)
             } else {
-                to = to.resize(width: -width + arrow + contentMargin.left,
+                to = to.resize(width: -width + arrow + contentMargin.horizontal,
                                fixed: .left)
             }
         }
-        shadowView.animationContainerView.frame = from
+        if isIn {
+            shadowView.animationContainerView.frame = from
+        }
 
         /// Start animating.
         UIView.animate(withDuration: 0.35, animations: {
             self.shadowView.animationContainerView.frame = to
+            if !isIn {
+                self.shadowView.animationContainerView.layoutIfNeeded()
+            }
         }) { _ in
             if !isIn {
                 self.hideHandler?(nil)

@@ -35,6 +35,19 @@ public class DOTextPopover: DOPopover {
 
     /// The text container view.
     private var textView: UITextView?
+
+    /// Override display.
+    public override func show(_ operateHandler: DOPopover.OperateHandler? = nil) {
+        textView?.font = font
+        textView?.textColor = textColor
+        super.show(operateHandler)
+    }
+
+    public override func show(duration: TimeInterval, hideHandler: DOPopover.OperateHandler? = nil) {
+        textView?.font = font
+        textView?.textColor = textColor
+        super.show(duration: duration, hideHandler: hideHandler)
+    }
 }
 
 //MARK: - Calculate
@@ -140,6 +153,8 @@ extension DOTextPopover {
             textView?.isEditable = false
             textView?.isSelectable = false
             textView?.textContainerInset = .zero
+            textView?.showsVerticalScrollIndicator = false
+            textView?.showsHorizontalScrollIndicator = false
             textView?.textContainer.lineFragmentPadding = 0
             contentView.addSubview(textView!)
             textView?.fillToSuperview(edges: .zero)

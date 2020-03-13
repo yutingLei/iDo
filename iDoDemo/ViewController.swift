@@ -25,7 +25,7 @@ class ViewController: UIViewController {
         let popover = DOTextPopover(referView: testView,
                                     popDirection: directs[idx])
         popover.animateStyle = .slideInOut
-        popover.text = "Just test popover."
+        popover.text = "Just test popover.Just test popover.Just test popover.Just test popover.Just test popover.Just test popover.Just test popover.Just test popover.Just test popover.Just test popover.Just test popover."
         popover.show()
     }
 }

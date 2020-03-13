@@ -128,3 +128,13 @@ public extension CGRect {
         return CGRect(origin: p, size: s)
     }
 }
+
+//MARK: - UIEdgeInsets
+public extension UIEdgeInsets {
+
+    /// Get vertical insets.
+    var vertical: CGFloat { get { return top + bottom } }
+
+    /// Get horizontal insets.
+    var horizontal: CGFloat { get { return left + right } }
+}
