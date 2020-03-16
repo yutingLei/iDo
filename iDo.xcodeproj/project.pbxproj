@@ -28,6 +28,7 @@
 		840DCE0D240E5587006681A3 /* DOPopover.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840DCE0C240E5587006681A3 /* DOPopover.swift */; };
 		84164E04240650D1007ACFDA /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84164E03240650D1007ACFDA /* UIView+Extension.swift */; };
 		84164E0624065964007ACFDA /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84164E0524065964007ACFDA /* String+Extension.swift */; };
+		848127AC241F23D300CD7B7E /* DOToast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848127AB241F23D300CD7B7E /* DOToast.swift */; };
 		849B584A22B78947009FC132 /* UIImage+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849B584922B78947009FC132 /* UIImage+Extension.swift */; };
 /* End PBXBuildFile section */
 
@@ -88,6 +89,7 @@
 		840DCE0C240E5587006681A3 /* DOPopover.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DOPopover.swift; sourceTree = "<group>"; };
 		84164E03240650D1007ACFDA /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
 		84164E0524065964007ACFDA /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
+		848127AB241F23D300CD7B7E /* DOToast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DOToast.swift; sourceTree = "<group>"; };
 		849B584922B78947009FC132 /* UIImage+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Extension.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -168,6 +170,7 @@
 				84088ACF240CB22E003B22F6 /* DOImageLoop.swift */,
 				84088AD1240CB27F003B22F6 /* DOImageLoop.xib */,
 				84088AE2240CED47003B22F6 /* DOLoading.swift */,
+				848127AB241F23D300CD7B7E /* DOToast.swift */,
 				840DCE0C240E5587006681A3 /* DOPopover.swift */,
 				84074FC7240F44D7008961CB /* DOTextPopover.swift */,
 				840928CE241B225400E2D4B2 /* DOListPopover.swift */,
@@ -372,6 +375,7 @@
 				84083473240763C500578754 /* UITextField+Extension.swift in Sources */,
 				8403440622A915920083CA01 /* UIViewController+Extension.swift in Sources */,
 				840928CF241B225400E2D4B2 /* DOListPopover.swift in Sources */,
+				848127AC241F23D300CD7B7E /* DOToast.swift in Sources */,
 				8402EC2222B22D12006B03BD /* CG+iDo.swift in Sources */,
 				84164E04240650D1007ACFDA /* UIView+Extension.swift in Sources */,
 				849B584A22B78947009FC132 /* UIImage+Extension.swift in Sources */,

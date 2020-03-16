@@ -159,8 +159,8 @@ public extension UIView {
         assert(superview != nil, "You must add it into a view before make constraints.")
         let top = topToSuperview(distance: edges.top)
         let leading = leadingToSuperview(distance: edges.left)
-        let trailing = trailingToSuperview(distance: -edges.right)
-        let bottom = bottomToSuperview(distance: -edges.bottom)
+        let trailing = trailingToSuperview(distance: edges.right)
+        let bottom = bottomToSuperview(distance: edges.bottom)
         return [top, leading, trailing, bottom]
     }
 
