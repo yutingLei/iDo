@@ -375,7 +375,7 @@ class DOTextRow: UITableViewCell {
             } else if let image = config.checkedIndicator as? UIImage {
                 checkIndicator.image = image
             } else {
-                checkIndicator.image = DOIcons.check?.render(with: .blue)
+                checkIndicator.image = DOIcons.get(.check).render(with: .blue)
             }
         } else {
             backgroundColor = config.backgroundColor
@@ -463,7 +463,7 @@ class DOIconTextRow: UITableViewCell {
             } else if let image = config.checkedIndicator as? UIImage {
                 checkIndicator.image = image
             } else {
-                checkIndicator.image = DOIcons.check?.render(with: .blue)
+                checkIndicator.image = DOIcons.get(.check).render(with: .blue)
             }
         } else {
             if checkIndicator.superview != nil {

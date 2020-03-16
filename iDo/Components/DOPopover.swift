@@ -20,6 +20,7 @@
 
 import UIKit
 
+/// Please use subclass [DOTextPopover] or [DOListPopover].
 public class DOPopover: UIView {
 
     /// Get screen's width and height.

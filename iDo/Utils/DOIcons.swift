@@ -11,13 +11,24 @@ import UIKit
 
 public class DOIcons: NSObject {
 
-    /// Get icon typed "check".
-    public static let check = DOIcons.icon(name: "do-icon-check")
+    /// Defines icon.
+    public enum Name: String {
+        case check = "do-icon-check"
+        case circle = "do-icon-circle"
+        case checkCircleFill = "do-icon-check-circle-fill"
+        case checkCircleOutline = "do-icon-check-circle-outline"
+        case checkBox = "do-icon-check-box"
+        case checkBoxOutline = "do-icon-check-box-outline"
+        case checkBoxFill = "do-icon-check-box-fill"
+    }
 
-    /// Get icon by name.
-    private class func icon(name: String) -> UIImage? {
+    /// Get Icons
+    ///
+    /// name: The name of icon.
+    /// size: The size of image returned. Range in [1 ~ 128], default 15.
+    public class func get(_ name: Name, size: CGFloat = 15) -> UIImage {
         let bundle = Bundle(for: DOIcons.self)
-        let path = "\(bundle.bundlePath)/DOResource.bundle/\(name)"
-        return UIImage(contentsOfFile: path)!
+        let path = "\(bundle.bundlePath)/DOResource.bundle/\(name.rawValue)"
+        return UIImage(contentsOfFile: path)!.resize(to: CGSize(width: size, height: size))
     }
 }
